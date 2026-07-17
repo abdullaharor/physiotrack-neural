@@ -1,15 +1,18 @@
 import { useAppCtx } from "./AppContext";
-import { NAV_REGISTRY } from "../data/registries";
+import { NAV_REGISTRY, type NavKey } from "../data/registries";
 import { Box, S } from "../lib/Box";
 import { Icon, ICONS } from "../lib/icons";
 import { sx } from "../lib/sx";
 
 /** Floating glass sidebar — brand, nav (with sliding indicator), language
- *  toggle and the therapist badge. Faithful to v3 lines 53–94. */
-export function Sidebar() {
+ *  toggle and the therapist badge. Faithful to v3 lines 53–94.
+ *  `hidden` is a preview-only prop (default none) used by the dev harness to
+ *  hide the sidebar item of a disabled module; production passes nothing. */
+export function Sidebar({ hidden = [] }: { hidden?: NavKey[] }) {
   const { state, t, actions } = useAppCtx();
   const isAr = state.lang === "ar";
-  const navIndex = Math.max(0, NAV_REGISTRY.findIndex((n) => n.key === state.view));
+  const navItems = NAV_REGISTRY.filter((n) => !hidden.includes(n.key));
+  const navIndex = Math.max(0, navItems.findIndex((n) => n.key === state.view));
 
   return (
     <aside style={sx("width:234px;flex-shrink:0;display:flex;flex-direction:column;padding:var(--space-6) var(--space-4) var(--space-4);border-radius:var(--radius-lg);background:color-mix(in srgb, var(--color-surface) 66%, transparent);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid var(--color-divider);box-shadow:var(--shadow-sm)")}>
@@ -25,7 +28,7 @@ export function Sidebar() {
 
       <nav style={sx("position:relative;display:flex;flex-direction:column;gap:4px;flex:1")}>
         <div style={sx(`position:absolute;insetInlineStart:0;width:100%;height:42px;border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-accent) 13%, transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--color-accent) 35%, transparent);pointer-events:none;transition:top .5s cubic-bezier(.3,1.35,.5,1);top:${navIndex * 46}px`)} />
-        {NAV_REGISTRY.map((n) => {
+        {navItems.map((n) => {
           const activeC = state.view === n.key;
           return (
             <Box

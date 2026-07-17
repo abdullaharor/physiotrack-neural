@@ -8,6 +8,7 @@ import { ModalHost } from "./modals/ModalHost";
 import { JarvisLayer } from "./jarvis/JarvisLayer";
 import { BootOS } from "./jarvis/BootOS";
 import { S } from "../lib/Box";
+import type { NavKey } from "../data/registries";
 
 /**
  * PhysioTrackApp — the host clinic platform, a faithful recreation of the
@@ -15,8 +16,20 @@ import { S } from "../lib/Box";
  * composes the sidebar, header, active screen, modal system, and the Jarvis
  * layer (chat panel + FAB + boot "OS"). Jarvis is powered entirely through
  * the integration boundary — this component contains no assistant logic.
+ *
+ * Optional preview props (`showJarvis`, `hiddenNav`) are used ONLY by the
+ * development preview harness (src/dev). Production (src/main.tsx) omits them,
+ * so they default to full behavior and production is unchanged.
  */
-export function PhysioTrackApp(props: AppProps) {
+export interface PhysioTrackAppProps extends AppProps {
+  /** Preview only: render the Jarvis UI (default true). */
+  showJarvis?: boolean;
+  /** Preview only: sidebar nav keys to hide (default none). */
+  hiddenNav?: NavKey[];
+}
+
+export function PhysioTrackApp(props: PhysioTrackAppProps) {
+  const { showJarvis = true, hiddenNav = [] } = props;
   const api = useApp(props);
   const { state, reducedMotion } = api;
   const dir = state.lang === "ar" ? "rtl" : "ltr";
@@ -33,14 +46,18 @@ export function PhysioTrackApp(props: AppProps) {
   return (
     <AppContext.Provider value={api}>
       <S as="div" sx={rootSx} {...{ dir, "data-motion": reducedMotion ? "reduced" : "full" }}>
-        <Sidebar />
+        <Sidebar hidden={hiddenNav} />
         <main style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, gap: 14 }}>
           <Header />
           <ScreenArea />
         </main>
         <ModalHost />
-        <JarvisLayer />
-        <BootOS />
+        {showJarvis && (
+          <>
+            <JarvisLayer />
+            <BootOS />
+          </>
+        )}
       </S>
     </AppContext.Provider>
   );
