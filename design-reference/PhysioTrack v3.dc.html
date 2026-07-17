@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/nocturne-c119c29a-ee5e-4008-ae85-26514d8f8546/styles.css">
+  <script src="_ds/nocturne-c119c29a-ee5e-4008-ae85-26514d8f8546/_ds_bundle.js"></script>
+  <style>
+    body{margin:0;overflow:hidden}
+    ::-webkit-scrollbar{width:8px;height:8px}
+    ::-webkit-scrollbar-thumb{background:var(--color-neutral-800);border-radius:8px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--color-neutral-700)}
+    ::-webkit-scrollbar-track{background:transparent}
+    a{color:var(--color-accent)} a:hover{color:var(--color-accent-400)}
+    .btn{white-space:nowrap;transition:transform .28s cubic-bezier(.34,1.6,.64,1),background .2s}
+    .btn:active{transform:scale(.955)}
+    [dir="rtl"] .table th{text-align:right}
+    input[type="range"]{-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:var(--color-neutral-800);outline:none}
+    input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--color-accent);cursor:pointer;box-shadow:0 0 10px color-mix(in srgb,var(--color-accent) 55%,transparent);transition:transform .2s cubic-bezier(.34,1.6,.64,1)}
+    input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.25)}
+    input[type="range"]::-webkit-slider-thumb:active{transform:scale(1.4)}
+    input[type="range"]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--color-accent);cursor:pointer;border:none}
+    @keyframes ptRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+    @keyframes ptFadeSlide{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+    @keyframes ptGrow{from{width:0}}
+    @keyframes ptShimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+    @keyframes ptDialogIn{from{opacity:0;transform:translateY(22px) scale(.955)}to{opacity:1;transform:none}}
+    @keyframes ptDialogOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(14px) scale(.97)}}
+    @keyframes ptFadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes ptFadeOut{from{opacity:1}to{opacity:0}}
+    @keyframes ptPulseRing{0%{transform:scale(1);opacity:.45}100%{transform:scale(1.9);opacity:0}}
+    @keyframes ptBreathe{0%,100%{box-shadow:0 0 12px color-mix(in srgb,var(--color-accent) 30%,transparent)}50%{box-shadow:0 0 26px color-mix(in srgb,var(--color-accent) 55%,transparent)}}
+    @keyframes ptBounce{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-4px);opacity:1}}
+    @keyframes ptTrace{to{stroke-dashoffset:0}}
+    @keyframes ptSpin{to{transform:rotate(360deg)}}
+    @keyframes ptBootOut{to{opacity:0;transform:scale(1.045);filter:blur(14px)}}
+    @keyframes ptWave{0%,100%{transform:scaleY(.22)}50%{transform:scaleY(1)}}
+    @keyframes ptFloat{0%{transform:translateY(24px);opacity:0}18%{opacity:.55}82%{opacity:.35}100%{transform:translateY(-52px);opacity:0}}
+    @keyframes ptCore{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
+    @keyframes ptHudIn{from{opacity:0;transform:translateY(26px) scale(.96);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+    [data-pt-panel] > *{flex-shrink:0}
+    [data-motion="reduced"] *{animation:none !important;transition:none !important}
+  </style>
+</helmet>
+
+<div dir="{{ dir }}" data-motion="{{ motion }}" style="height:100vh;display:flex;gap:14px;padding:14px;box-sizing:border-box;color:var(--color-text);font-family:var(--font-body);font-size:15px;overflow:hidden;background:radial-gradient(1100px 600px at 18% -12%, color-mix(in srgb, var(--color-section) 34%, transparent), transparent 62%),radial-gradient(900px 700px at 108% 112%, color-mix(in srgb, var(--color-section-glow) 20%, transparent), transparent 58%),var(--color-bg)">
+
+  <!-- ══ FLOATING GLASS SIDEBAR ══ -->
+  <aside style="width:234px;flex-shrink:0;display:flex;flex-direction:column;padding:var(--space-6) var(--space-4) var(--space-4);border-radius:var(--radius-lg);background:color-mix(in srgb, var(--color-surface) 66%, transparent);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid var(--color-divider);box-shadow:var(--shadow-sm)">
+    <div style="display:flex;align-items:center;gap:10px;padding:0 var(--space-2) var(--space-6)">
+      <span style="width:30px;height:30px;border-radius:9px;flex-shrink:0;display:grid;place-items:center;color:var(--color-accent);border:1px solid var(--color-accent);animation:ptBreathe 4.5s ease-in-out infinite">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-6 4 12 2.5-6h5"/></svg>
+      </span>
+      <span>
+        <span style="display:block;font-family:var(--font-heading);font-weight:600;font-size:17px;letter-spacing:-0.02em">{{ t.appName }}</span>
+        <span style="display:block;font-size:11px;opacity:0.55;margin-top:1px">{{ t.tagline }}</span>
+      </span>
+    </div>
+
+    <nav style="position:relative;display:flex;flex-direction:column;gap:4px;flex:1">
+      <div style="position:absolute;insetInlineStart:0;width:100%;height:42px;border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-accent) 13%, transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--color-accent) 35%, transparent);pointer-events:none;transition:top .5s cubic-bezier(.3,1.35,.5,1);top:{{ navIndicatorTop }}px"></div>
+      <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="7">
+        <div onClick="{{ item.go }}" style="position:relative;display:flex;align-items:center;gap:12px;height:42px;padding:0 12px;border-radius:var(--radius-md);cursor:pointer;font-size:13.5px;font-weight:500;color:{{ item.color }};transition:color .3s" style-hover="background:color-mix(in srgb, var(--color-text) 5%, transparent)">
+          <span style="width:19px;height:19px;flex-shrink:0;display:flex;transition:transform .3s cubic-bezier(.34,1.6,.64,1)" dangerouslySetInnerHTML="{{ item.iconHtml }}"></span>
+          <span style="flex:1">{{ item.label }}</span>
+          <sc-if value="{{ item.soon }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:9px;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;border-radius:6px;border:1px solid var(--color-divider);opacity:0.65">{{ t.soonTag }}</span>
+          </sc-if>
+        </div>
+      </sc-for>
+    </nav>
+
+    <div onClick="{{ toggleLang }}" style="position:relative;display:flex;border:1px solid var(--color-divider);border-radius:var(--radius-md);cursor:pointer;margin-bottom:10px;overflow:hidden" title="Language">
+      <div style="position:absolute;top:0;bottom:0;width:50%;background:color-mix(in srgb, var(--color-accent) 14%, transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--color-accent) 40%, transparent);border-radius:var(--radius-md);transition:inset-inline-start .45s cubic-bezier(.3,1.35,.5,1);insetInlineStart:{{ langThumbStart }}"></div>
+      <span style="position:relative;flex:1;text-align:center;padding:8px 0;font-size:12px;font-weight:600;color:{{ arColor }};transition:color .3s">العربية</span>
+      <span style="position:relative;flex:1;text-align:center;padding:8px 0;font-size:12px;font-weight:600;color:{{ enColor }};transition:color .3s">English</span>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-bg) 55%, transparent);border:1px solid var(--color-divider)">
+      <span style="position:relative;width:9px;height:9px;flex-shrink:0">
+        <span style="position:absolute;inset:0;border-radius:50%;background:var(--color-accent)"></span>
+        <span style="position:absolute;inset:0;border-radius:50%;background:var(--color-accent);animation:ptPulseRing 2.6s ease-out infinite"></span>
+      </span>
+      <span style="min-width:0">
+        <span style="display:block;font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.doctorName }}</span>
+        <span style="display:block;font-size:10.5px;opacity:0.55;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.doctorRole }}</span>
+      </span>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN COLUMN ══ -->
+  <main style="flex:1;display:flex;flex-direction:column;min-width:0;gap:14px">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px var(--space-6);border-radius:var(--radius-lg);background:color-mix(in srgb, var(--color-surface) 66%, transparent);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);flex-shrink:0">
+      <div style="min-width:0">
+        <h1 style="font-size:19px;margin:0;white-space:nowrap;animation:ptFadeSlide .45s cubic-bezier(.22,.8,.36,1) both">{{ t.viewTitle }}</h1>
+        <div style="font-size:11.5px;opacity:0.5;margin-top:2px;white-space:nowrap;animation:ptFadeSlide .55s cubic-bezier(.22,.8,.36,1) both">{{ t.viewSub }}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;opacity:0.7;font-weight:500;white-space:nowrap">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 8px var(--color-accent)"></span>
+        <span>{{ t.onlineStatus }}</span>
+      </div>
+    </div>
+
+    <div style="flex:1;overflow-y:auto;overflow-x:hidden;padding:var(--space-2) var(--space-2) 40px;border-radius:var(--radius-lg)" data-screen-label="{{ state.view }}">
+
+      <!-- SKELETON -->
+      <sc-if value="{{ viewLoading }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)">
+          <sc-for list="{{ skels4 }}" as="s" hint-placeholder-count="4">
+            <div style="height:96px;border-radius:var(--radius-md);background:linear-gradient(100deg, var(--color-surface) 35%, color-mix(in srgb, var(--color-neutral-700) 26%, var(--color-surface)) 48%, var(--color-surface) 61%);background-size:200% 100%;animation:ptShimmer 1.25s linear infinite"></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:var(--space-6)">
+          <sc-for list="{{ skels5 }}" as="s" hint-placeholder-count="5">
+            <div style="height:58px;border-radius:var(--radius-md);background:linear-gradient(100deg, var(--color-surface) 35%, color-mix(in srgb, var(--color-neutral-700) 26%, var(--color-surface)) 48%, var(--color-surface) 61%);background-size:200% 100%;animation:ptShimmer 1.25s linear infinite;animation-delay:{{ s.delay }}"></div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ viewReady }}" hint-placeholder-val="{{ false }}">
+
+        <!-- ══ DASHBOARD ══ -->
+        <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)">
+            <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+              <div style="padding:var(--space-4);border-radius:var(--radius-md);background:linear-gradient(160deg, color-mix(in srgb, var(--color-surface) 92%, var(--color-section-glow)) 0%, var(--color-surface) 70%);border:1px solid var(--color-divider);animation:ptRise .55s cubic-bezier(.22,.8,.36,1) both;animation-delay:{{ k.delay }};transition:transform .35s cubic-bezier(.3,1.3,.5,1),box-shadow .35s" style-hover="transform:translateY(-4px);box-shadow:var(--shadow-md)">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                  <span style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent)">{{ k.label }}</span>
+                  <span style="width:16px;height:16px;display:flex;opacity:0.5" dangerouslySetInnerHTML="{{ k.iconHtml }}"></span>
+                </div>
+                <div style="font-family:var(--font-heading);font-size:34px;font-weight:500;letter-spacing:-0.02em;margin-top:10px;font-variant-numeric:tabular-nums">{{ k.value }}</div>
+                <div style="font-size:11px;opacity:0.5;margin-top:4px">{{ k.meta }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 320px;gap:var(--space-4);margin-top:var(--space-4);align-items:start">
+            <div style="padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-divider);animation:ptRise .55s cubic-bezier(.22,.8,.36,1) both;animation-delay:180ms">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2)">
+                <h2 style="font-size:15px;margin:0">{{ t.activePatientsTitle }}</h2>
+                <span class="btn btn-ghost" onClick="{{ goPatients }}" style="cursor:pointer">{{ t.viewAll }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column">
+                <sc-for list="{{ patientRows }}" as="p" hint-placeholder-count="5">
+                  <div onClick="{{ p.open }}" style="display:flex;align-items:center;gap:14px;padding:13px 10px;border-top:1px solid var(--color-divider);cursor:pointer;border-radius:var(--radius-sm);animation:ptRise .5s cubic-bezier(.22,.8,.36,1) both;animation-delay:{{ p.delay }};transition:background .25s,transform .25s" style-hover="background:color-mix(in srgb, var(--color-text) 5%, transparent)" style-active="transform:scale(.99)">
+                    <div style="width:40px;height:40px;border-radius:12px;flex-shrink:0;display:grid;place-items:center;font-weight:600;font-size:14px;background:var(--color-accent-900);color:var(--color-accent-200);box-shadow:inset 0 0 0 1px var(--color-accent-800)">{{ p.initials }}</div>
+                    <div style="width:170px;flex-shrink:0;min-width:0">
+                      <div style="font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.name }}</div>
+                      <div style="font-size:11.5px;opacity:0.55;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" dir="ltr">{{ p.diag }}</div>
+                    </div>
+                    <div style="flex:1;min-width:0">
+                      <div style="display:flex;justify-content:space-between;gap:10px;font-size:10.5px;opacity:0.55;margin-bottom:6px"><span style="white-space:nowrap">{{ t.progress }}</span><span style="white-space:nowrap">{{ p.sessionsLabel }}</span></div>
+                      <div style="height:4px;border-radius:4px;background:var(--color-neutral-800);overflow:hidden">
+                        <div style="height:100%;border-radius:4px;background:linear-gradient(90deg, var(--color-accent-600), var(--color-accent));width:{{ p.pct }}%;animation:ptGrow 1s cubic-bezier(.22,.8,.36,1) both;animation-delay:{{ p.delay }}"></div>
+                      </div>
+                    </div>
+                    <div style="width:96px;flex-shrink:0;text-align:end;font-size:12px;opacity:0.75;white-space:nowrap">
+                      <div>{{ p.apptDay }}</div>
+                      <div style="font-weight:600;color:var(--color-text)">{{ p.apptTime }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+              <div style="padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-divider);animation:ptRise .55s cubic-bezier(.22,.8,.36,1) both;animation-delay:240ms">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:var(--space-3)">
+                  <h2 style="font-size:15px;margin:0;flex:1">{{ t.cdssTitle }}</h2>
+                  <span class="tag tag-outline" style="white-space:nowrap">{{ t.cdssTag }}</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <sc-for list="{{ dashInsights }}" as="ins" hint-placeholder-count="3">
+                    <div onClick="{{ ins.open }}" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);background:color-mix(in srgb, {{ ins.color }} 6%, transparent);border-inline-start:2px solid {{ ins.color }};cursor:pointer;animation:ptRise .5s both;animation-delay:{{ ins.delay }};transition:background .25s" style-hover="background:color-mix(in srgb, var(--color-text) 6%, transparent)">
+                      <span style="flex:1;min-width:0">
+                        <span style="display:block;font-size:11px;opacity:0.55;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ ins.patientName }}</span>
+                        <span style="display:block;font-size:12px;font-weight:500;line-height:1.45;margin-top:1px">{{ ins.title }}</span>
+                      </span>
+                      <span style="font-size:9px;letter-spacing:0.07em;text-transform:uppercase;padding:2px 7px;border-radius:6px;background:{{ ins.tint }};color:{{ ins.color }};white-space:nowrap;flex-shrink:0">{{ ins.sevLabel }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="font-size:10px;opacity:0.4;line-height:1.5;margin-top:var(--space-3)">{{ t.cdssDisclaimer }}</div>
+              </div>
+              <div onClick="{{ goAnatomy }}" style="position:relative;overflow:hidden;padding:var(--space-4);border-radius:var(--radius-md);background:linear-gradient(150deg, color-mix(in srgb, var(--color-section) 62%, var(--color-surface)), var(--color-surface) 78%);border:1px solid var(--color-divider);cursor:pointer;animation:ptRise .55s both;animation-delay:300ms;transition:transform .35s cubic-bezier(.3,1.3,.5,1),box-shadow .35s" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-md)">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="tag tag-outline">{{ t.soonTag }}</span>
+                </div>
+                <div style="font-family:var(--font-heading);font-size:17px;margin-top:10px">{{ t.anatomyTitle }}</div>
+                <div style="font-size:12px;opacity:0.6;margin-top:4px;line-height:1.5">{{ t.anatomyTeaser }}</div>
+                <div style="position:absolute;insetInlineEnd:-30px;bottom:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle, color-mix(in srgb, var(--color-section-ghost) 55%, transparent), transparent 70%)"></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ══ PATIENTS ══ -->
+        <sc-if value="{{ isPatients }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:var(--space-4);animation:ptRise .45s both">
+            <div style="position:relative;flex:1;max-width:340px">
+              <span style="position:absolute;insetInlineStart:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;display:flex;opacity:0.45;pointer-events:none" dangerouslySetInnerHTML="{{ searchIconHtml }}"></span>
+              <input class="input" value="{{ searchQ }}" onInput="{{ setSearch }}" placeholder="{{ t.searchPlaceholder }}" style="padding-inline-start:36px;background:color-mix(in srgb, var(--color-surface) 80%, transparent);transition:box-shadow .3s,border-color .3s" style-focus="box-shadow:0 0 0 3px color-mix(in srgb, var(--color-accent) 18%, transparent)"/>
+            </div>
+            <button type="button" class="btn btn-primary" onClick="{{ openAddPatient }}">{{ t.newPatient }}</button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:var(--space-4)">
+            <sc-for list="{{ patientCards }}" as="p" hint-placeholder-count="5">
+              <div onClick="{{ p.open }}" style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-divider);cursor:pointer;animation:ptRise .55s cubic-bezier(.22,.8,.36,1) both;animation-delay:{{ p.delay }};transition:transform .35s cubic-bezier(.3,1.3,.5,1),box-shadow .35s" style-hover="transform:translateY(-4px);box-shadow:var(--shadow-md)" style-active="transform:scale(.985)">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:44px;height:44px;border-radius:13px;flex-shrink:0;display:grid;place-items:center;font-weight:600;font-size:15px;background:var(--color-accent-900);color:var(--color-accent-200);box-shadow:inset 0 0 0 1px var(--color-accent-800)">{{ p.initials }}</div>
+                  <div style="min-width:0">
+                    <div style="font-family:var(--font-heading);font-weight:500;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.name }}</div>
+                    <div style="font-size:11.5px;opacity:0.55;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" dir="ltr">{{ p.diag }}</div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;opacity:0.6;margin-bottom:6px">
+                    <span style="white-space:nowrap">{{ t.progress }}</span><span style="white-space:nowrap">{{ p.sessionsLabel }} · {{ p.pct }}%</span>
+                  </div>
+                  <div style="height:4px;border-radius:4px;background:var(--color-neutral-800);overflow:hidden">
+                    <div style="height:100%;border-radius:4px;background:linear-gradient(90deg, var(--color-accent-600), var(--color-accent));width:{{ p.pct }}%;animation:ptGrow 1s cubic-bezier(.22,.8,.36,1) both"></div>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <span style="font-size:11.5px;opacity:0.55;white-space:nowrap">{{ p.apptDay }} · {{ p.apptTime }}</span>
+                  <span class="tag {{ p.invoiceTagClass }}">{{ p.invoiceLabel }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:center;padding:60px 20px;opacity:0.5;font-size:13.5px;animation:ptFadeIn .4s both">{{ t.noResults }}</div>
+          </sc-if>
+        </sc-if>
+
+        <!-- ══ APPOINTMENTS ══ -->
+        <sc-if value="{{ isAppointments }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-divider);animation:ptRise .5s both">
+            <table class="table">
+              <thead><tr><th>{{ t.colPatient }}</th><th>{{ t.colDiagnosis }}</th><th>{{ t.colDay }}</th><th>{{ t.colTime }}</th><th>{{ t.colStatus }}</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ apptRows }}" as="p" hint-placeholder-count="5">
+                  <tr style="animation:ptRise .5s both;animation-delay:{{ p.delay }};cursor:pointer" onClick="{{ p.open }}">
+                    <td style="font-weight:600">{{ p.name }}</td>
+                    <td dir="ltr" class="text-muted">{{ p.diag }}</td>
+                    <td>{{ p.apptDay }}</td>
+                    <td>{{ p.apptTime }}</td>
+                    <td><span class="tag tag-accent">{{ t.confirmed }}</span></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </sc-if>
+
+        <!-- ══ INVOICES ══ -->
+        <sc-if value="{{ isInvoices }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-divider);animation:ptRise .5s both">
+            <table class="table">
+              <thead><tr><th>{{ t.colPatient }}</th><th>{{ t.colSessions }}</th><th>{{ t.colAmount }}</th><th>{{ t.colStatus }}</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ invRows }}" as="p" hint-placeholder-count="5">
+                  <tr style="animation:ptRise .5s both;animation-delay:{{ p.delay }}">
+                    <td style="font-weight:600">{{ p.name }}</td>
+                    <td>{{ p.done }}</td>
+                    <td><span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-variant-numeric:tabular-nums">{{ p.amount }}</span></td>
+                    <td><span class="tag {{ p.invoiceTagClass }}">{{ p.invoiceLabel }}</span></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </sc-if>
+
+        <!-- ══ TEAM ══ -->
+        <sc-if value="{{ isTeam }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-divider);animation:ptRise .5s both">
+            <table class="table">
+              <thead><tr><th>{{ t.colName }}</th><th>{{ t.colRole }}</th><th>{{ t.colStatus }}</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ teamRows }}" as="m" hint-placeholder-count="3">
+                  <tr style="animation:ptRise .5s both;animation-delay:{{ m.delay }}">
+                    <td style="font-weight:600">{{ m.name }}</td>
+                    <td class="text-muted">{{ m.role }}</td>
+                    <td><span class="tag tag-accent">{{ t.active }}</span></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </sc-if>
+
+        <!-- ══ ANATOMY — COMING SOON MODULE ══ -->
+        <sc-if value="{{ isAnatomy }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;place-items:center;min-height:100%;padding:var(--space-6) 0">
+            <div style="position:relative;overflow:hidden;width:min(600px,100%);padding:var(--space-8);border-radius:var(--radius-lg);background:linear-gradient(165deg, color-mix(in srgb, var(--color-section) 55%, var(--color-surface)), var(--color-surface) 66%);border:1px solid var(--color-divider);box-shadow:var(--shadow-md);animation:ptRise .6s cubic-bezier(.22,.8,.36,1) both;text-align:center">
+              <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:340px;height:220px;border-radius:50%;background:radial-gradient(ellipse, color-mix(in srgb, var(--color-section-ghost) 45%, transparent), transparent 70%);pointer-events:none"></div>
+              <div style="position:relative;width:74px;height:74px;margin:0 auto">
+                <span style="position:absolute;inset:0;border-radius:50%;border:1px solid var(--color-accent);opacity:0.5;animation:ptPulseRing 3s ease-out infinite"></span>
+                <span style="position:absolute;inset:0;border-radius:50%;border:1px solid var(--color-accent);opacity:0.5;animation:ptPulseRing 3s ease-out 1.5s infinite"></span>
+                <span style="position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb, var(--color-accent) 10%, transparent);border:1px solid var(--color-accent);color:var(--color-accent)">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>
+                </span>
+              </div>
+              <div style="margin-top:var(--space-6)"><span class="tag tag-outline">{{ t.soonTag }}</span></div>
+              <h2 style="font-size:26px;margin:var(--space-3) 0 var(--space-2)">{{ t.anatomyTitle }}</h2>
+              <p style="font-size:13.5px;opacity:0.65;line-height:1.65;max-width:44ch;margin:0 auto var(--space-6)">{{ t.anatomyLead }}</p>
+              <div style="display:flex;flex-direction:column;gap:0;text-align:start;max-width:420px;margin:0 auto">
+                <sc-for list="{{ anatomyFeatures }}" as="f" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:center;gap:12px;padding:11px 4px;border-top:1px solid var(--color-divider);font-size:13px;animation:ptRise .5s both;animation-delay:{{ f.delay }}">
+                    <span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);flex-shrink:0;box-shadow:0 0 7px var(--color-accent)"></span>
+                    <span style="flex:1;opacity:0.85">{{ f.label }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <button type="button" class="btn btn-primary" disabled="{{ true }}" style="margin-top:var(--space-6)">{{ t.anatomyCta }}</button>
+              <div style="font-size:10.5px;opacity:0.4;margin-top:var(--space-4);font-variant-numeric:tabular-nums" dir="ltr">module: atlas-3d · engine slot: three.js / Z-Anatomy · plugs into patient profile — no app changes required</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ══ DEVICES — PLUGIN HUB ══ -->
+        <sc-if value="{{ isDevices }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:var(--space-4);animation:ptRise .45s both">
+            <div style="font-size:13px;opacity:0.65;max-width:60ch;line-height:1.6">{{ t.devicesLead }}</div>
+            <span class="tag tag-outline" style="white-space:nowrap">{{ t.pluginArch }}</span>
+          </div>
+
+          <div style="font-size:10.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;margin:var(--space-4) 0 var(--space-3)">{{ t.pairedTitle }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-4)">
+            <sc-for list="{{ pairedDevices }}" as="d" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:14px;padding:var(--space-4);border-radius:var(--radius-md);background:linear-gradient(160deg, color-mix(in srgb, var(--color-surface) 90%, var(--color-section-glow)), var(--color-surface) 75%);border:1px solid var(--color-divider);animation:ptRise .55s both;animation-delay:{{ d.delay }};transition:transform .35s cubic-bezier(.3,1.3,.5,1),box-shadow .35s" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-md)">
+                <span style="position:relative;width:42px;height:42px;flex-shrink:0;display:grid;place-items:center;border-radius:12px;border:1px solid var(--color-accent-800);color:var(--color-accent);background:color-mix(in srgb, var(--color-accent) 8%, transparent)" dangerouslySetInnerHTML="{{ d.iconHtml }}"></span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" dir="ltr">{{ d.name }}</span>
+                  <span style="display:block;font-size:11.5px;opacity:0.55;margin-top:2px">{{ d.meta }}</span>
+                </span>
+                <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--color-accent-300);white-space:nowrap">
+                  <span style="position:relative;width:7px;height:7px">
+                    <span style="position:absolute;inset:0;border-radius:50%;background:var(--color-accent)"></span>
+                    <span style="position:absolute;inset:0;border-radius:50%;background:var(--color-accent);animation:ptPulseRing 2.2s ease-out infinite"></span>
+                  </span>
+                  {{ t.statusConnected }}
+                </span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="font-size:10.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;margin:var(--space-6) 0 var(--space-3)">{{ t.catalogTitle }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-4)">
+            <sc-for list="{{ deviceCategories }}" as="cat" hint-placeholder-count="4">
+              <div style="padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-divider);animation:ptRise .55s both;animation-delay:{{ cat.delay }}">
+                <div style="font-family:var(--font-heading);font-size:15px;margin-bottom:var(--space-2)">{{ cat.label }}</div>
+                <div style="display:flex;flex-direction:column">
+                  <sc-for list="{{ cat.items }}" as="d" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:center;gap:10px;padding:9px 2px;border-top:1px solid var(--color-divider);font-size:12.5px">
+                      <span style="flex:1;opacity:0.85">{{ d.name }}</span>
+                      <span style="font-size:10px;opacity:0.45;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap" dir="ltr">{{ d.conn }}</span>
+                      <span class="tag {{ d.tagClass }}" style="white-space:nowrap">{{ d.statusLabel }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-size:10.5px;opacity:0.4;margin-top:var(--space-4);text-align:center" dir="ltr">DeviceRegistry v1 · declarative plugin manifests · adding a device = one registry entry, zero core changes</div>
+        </sc-if>
+
+      </sc-if>
+    </div>
+  </main>
+
+  <!-- ══ MORPHING MODAL SYSTEM ══ -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:24px;background:color-mix(in srgb, var(--color-neutral-900) 55%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:{{ backdropAnim }} .3s ease both">
+      <div onClick="{{ stop }}" data-screen-label="{{ modalType }}" data-pt-panel="1" style="width:{{ modalWidth }};max-width:94vw;max-height:86vh;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-6);border-radius:var(--radius-lg);background:color-mix(in srgb, var(--color-surface) 94%, var(--color-section-glow));border:1px solid color-mix(in srgb, var(--color-text) 14%, transparent);box-shadow:var(--shadow-lg);animation:{{ panelAnim }} .42s cubic-bezier(.3,1.25,.5,1) both;transition:width .45s cubic-bezier(.3,1.2,.5,1)">
+
+        <!-- PROFILE -->
+        <sc-if value="{{ mProfile }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:12px;animation:ptFadeSlide .4s both">
+            <button type="button" class="btn btn-secondary btn-icon" onClick="{{ closeModal }}" aria-label="close">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div style="font-family:var(--font-heading);font-size:20px;flex:1">{{ profile.name }}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:var(--space-4);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-bg) 60%, transparent);border:1px solid var(--color-divider);animation:ptFadeSlide .45s both">
+            <div style="width:58px;height:58px;border-radius:16px;flex-shrink:0;display:grid;place-items:center;font-weight:600;font-size:19px;background:var(--color-accent-900);color:var(--color-accent-200);box-shadow:inset 0 0 0 1px var(--color-accent-700), 0 0 18px color-mix(in srgb, var(--color-accent) 22%, transparent)">{{ profile.initials }}</div>
+            <div style="min-width:0">
+              <div style="font-size:17px;font-weight:600">{{ profile.name }}</div>
+              <div style="font-size:12.5px;opacity:0.6;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ profile.ageGender }} · <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;display:inline-block;max-width:230px;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom">{{ profile.diag }}</span></div>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
+                <div style="flex:1;width:150px;height:4px;border-radius:4px;background:var(--color-neutral-800);overflow:hidden">
+                  <div style="height:100%;background:linear-gradient(90deg, var(--color-accent-600), var(--color-accent));width:{{ profile.pct }}%;animation:ptGrow .9s cubic-bezier(.22,.8,.36,1) both"></div>
+                </div>
+                <span style="font-size:11px;opacity:0.6;white-space:nowrap">{{ profile.sessionsLabel }}</span>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)">
+            <div onClick="{{ startAssessment }}" style="padding:var(--space-4);border-radius:var(--radius-md);border:1px solid var(--color-accent);color:var(--color-accent);cursor:pointer;animation:ptFadeSlide .5s both;transition:background .25s,transform .3s cubic-bezier(.34,1.6,.64,1)" style-hover="background:color-mix(in srgb, var(--color-accent) 10%, transparent)" style-active="transform:scale(.97)">
+              <span style="display:flex;width:20px;height:20px" dangerouslySetInnerHTML="{{ assessIconHtml }}"></span>
+              <div style="font-weight:600;font-size:14px;margin-top:10px">{{ t.newAssessment }}</div>
+              <div style="font-size:11.5px;opacity:0.65;margin-top:2px">{{ t.newAssessmentSub }}</div>
+            </div>
+            <div onClick="{{ goAnatomyFromProfile }}" style="position:relative;padding:var(--space-4);border-radius:var(--radius-md);border:1px solid var(--color-divider);cursor:pointer;animation:ptFadeSlide .55s both;transition:background .25s,transform .3s cubic-bezier(.34,1.6,.64,1)" style-hover="background:color-mix(in srgb, var(--color-text) 5%, transparent)" style-active="transform:scale(.97)">
+              <span style="display:flex;width:20px;height:20px;opacity:0.7" dangerouslySetInnerHTML="{{ anatomyIconHtml }}"></span>
+              <div style="font-weight:600;font-size:14px;margin-top:10px;opacity:0.8">{{ t.anatomyTitle }}</div>
+              <div style="font-size:11.5px;opacity:0.5;margin-top:2px">{{ t.anatomyTeaserShort }}</div>
+              <span class="tag tag-outline" style="position:absolute;top:12px;insetInlineEnd:12px;font-size:9px">{{ t.soonTag }}</span>
+            </div>
+          </div>
+          <sc-if value="{{ hasProfileInsights }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:8px;margin-top:var(--space-2)">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;flex:1">{{ t.cdssTitle }}</span>
+              <span class="tag tag-outline" style="white-space:nowrap;font-size:9px">{{ t.cdssTag }}</span>
+            </div>
+            <sc-for list="{{ profileInsights }}" as="ins" hint-placeholder-count="2">
+              <div style="border-radius:var(--radius-md);border:1px solid var(--color-divider);border-inline-start:2px solid {{ ins.color }};background:color-mix(in srgb, var(--color-bg) 50%, transparent);overflow:hidden;opacity:{{ ins.dim }};animation:ptFadeSlide .5s both;animation-delay:{{ ins.delay }};transition:opacity .4s">
+                <div onClick="{{ ins.toggle }}" style="display:flex;align-items:center;gap:10px;padding:11px var(--space-3);cursor:pointer;transition:background .25s" style-hover="background:color-mix(in srgb, var(--color-text) 4%, transparent)">
+                  <span style="font-size:9px;letter-spacing:0.07em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:{{ ins.tint }};color:{{ ins.color }};white-space:nowrap;flex-shrink:0">{{ ins.sevLabel }}</span>
+                  <span style="flex:1;font-size:12.5px;font-weight:600;line-height:1.45;min-width:0">{{ ins.title }}</span>
+                  <sc-if value="{{ ins.statusLabel }}" hint-placeholder-val="{{ false }}">
+                    <span class="tag tag-neutral" style="white-space:nowrap;flex-shrink:0">{{ ins.statusLabel }}</span>
+                  </sc-if>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.45;flex-shrink:0;transition:transform .35s cubic-bezier(.3,1.3,.5,1);transform:{{ ins.chev }}"><path d="M6 9l6 6 6-6"/></svg>
+                </div>
+                <div style="display:grid;grid-template-rows:{{ ins.rows }};transition:grid-template-rows .5s cubic-bezier(.22,.8,.36,1)">
+                  <div style="min-height:0;overflow:hidden">
+                    <div style="padding:2px var(--space-3) var(--space-3)">
+                      <div style="font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.45;margin-bottom:4px">{{ t.cdssWhy }}</div>
+                      <div style="font-size:12.5px;line-height:1.65;opacity:0.85">{{ ins.why }}</div>
+                      <div style="font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.45;margin:var(--space-3) 0 4px">{{ t.cdssFindings }}</div>
+                      <sc-for list="{{ ins.findings }}" as="f" hint-placeholder-count="2">
+                        <div style="display:flex;align-items:center;gap:8px;font-size:12px;opacity:0.75;padding:2px 0"><span style="width:4px;height:4px;border-radius:50%;background:{{ ins.color }};flex-shrink:0"></span><span dir="auto">{{ f }}</span></div>
+                      </sc-for>
+                      <sc-for list="{{ ins.groups }}" as="g" hint-placeholder-count="2">
+                        <div style="font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.45;margin:var(--space-3) 0 6px">{{ g.label }}</div>
+                        <div style="display:flex;flex-wrap:wrap;gap:5px">
+                          <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="4">
+                            <span style="font-size:11px;padding:4px 10px;border-radius:999px;border:1px solid var(--color-divider);opacity:0.85;white-space:nowrap" dir="ltr">{{ it }}</span>
+                          </sc-for>
+                        </div>
+                      </sc-for>
+                      <div style="display:flex;align-items:center;gap:8px;margin-top:var(--space-3);font-size:11px;opacity:0.6">
+                        <span>{{ t.cdssConfidence }}:</span><span style="color:{{ ins.color }};font-weight:600">{{ ins.confLabel }}</span>
+                      </div>
+                      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--space-3)">
+                        <button type="button" class="btn btn-primary" onClick="{{ ins.accept }}" style="font-size:12px">{{ t.actAccept }}</button>
+                        <button type="button" class="btn btn-secondary" onClick="{{ ins.done }}" style="font-size:12px">{{ t.actDone }}</button>
+                        <button type="button" class="btn btn-secondary" onClick="{{ ins.dismiss }}" style="font-size:12px">{{ t.actDismiss }}</button>
+                        <button type="button" class="btn btn-ghost" onClick="{{ ins.hide }}" style="font-size:12px">{{ t.actHide }}</button>
+                      </div>
+                      <input class="input" value="{{ ins.note }}" onInput="{{ ins.setNote }}" onClick="{{ ins.stop }}" placeholder="{{ t.notePlaceholder }}" style="margin-top:var(--space-2);font-size:12px;min-height:32px;padding:5px 10px"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+            <div style="font-size:10px;opacity:0.4;line-height:1.5">{{ t.cdssDisclaimer }}</div>
+          </sc-if>
+          <sc-if value="{{ profile.hasHistory }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:10.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;margin-top:var(--space-2)">{{ t.historyTitle }}</div>
+            <sc-for list="{{ profile.history }}" as="h" hint-placeholder-count="2">
+              <div onClick="{{ h.view }}" style="display:flex;align-items:center;gap:12px;padding:12px var(--space-3);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-bg) 50%, transparent);border:1px solid var(--color-divider);cursor:pointer;animation:ptFadeSlide .5s both;transition:background .25s" style-hover="background:color-mix(in srgb, var(--color-text) 6%, transparent)">
+                <div style="flex:1">
+                  <div style="font-weight:600;font-size:13.5px">{{ h.label }}</div>
+                  <div style="font-size:11.5px;opacity:0.55;margin-top:2px">{{ h.date }} · ROM {{ h.romPct }}% · MMT {{ h.mmtAvg }}/5</div>
+                </div>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="opacity:0.4;transform:{{ chevFlip }}"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+            </sc-for>
+          </sc-if>
+        </sc-if>
+
+        <!-- ADD PATIENT -->
+        <sc-if value="{{ mAdd }}" hint-placeholder-val="{{ false }}">
+          <div style="font-family:var(--font-heading);font-size:20px;animation:ptFadeSlide .4s both">{{ t.newPatientTitle }}</div>
+          <div class="field" style="animation:ptFadeSlide .42s both"><label>{{ t.fieldName }}</label><input class="input" value="{{ form.name }}" onChange="{{ form.setName }}"/></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);animation:ptFadeSlide .46s both">
+            <div class="field"><label>{{ t.fieldAge }}</label><input class="input" type="number" value="{{ form.age }}" onChange="{{ form.setAge }}"/></div>
+            <div class="field"><label>{{ t.fieldGender }}</label>
+              <select class="input" value="{{ form.gender }}" onChange="{{ form.setGender }}">
+                <option value="male">{{ t.male }}</option><option value="female">{{ t.female }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="field" style="animation:ptFadeSlide .5s both"><label>{{ t.fieldDiagnosis }}</label><input class="input" dir="ltr" value="{{ form.diag }}" onChange="{{ form.setDiag }}"/></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);animation:ptFadeSlide .54s both">
+            <div class="field"><label>{{ t.fieldRegion }}</label>
+              <select class="input" value="{{ form.dxKey }}" onChange="{{ form.setDxKey }}">
+                <sc-for list="{{ dxOptions }}" as="o" hint-placeholder-count="4">
+                  <option value="{{ o.key }}">{{ o.label }}</option>
+                </sc-for>
+              </select>
+            </div>
+            <div class="field"><label>{{ t.fieldTotalSessions }}</label><input class="input" type="number" value="{{ form.total }}" onChange="{{ form.setTotal }}"/></div>
+          </div>
+          <div style="display:flex;gap:var(--space-2);justify-content:flex-end;margin-top:var(--space-2);animation:ptFadeSlide .58s both">
+            <button type="button" class="btn btn-secondary" onClick="{{ closeModal }}">{{ t.cancel }}</button>
+            <button type="button" class="btn btn-primary" onClick="{{ savePatient }}">{{ t.saveButton }}</button>
+          </div>
+        </sc-if>
+
+        <!-- PICK AREA -->
+        <sc-if value="{{ mPick }}" hint-placeholder-val="{{ false }}">
+          <div style="font-family:var(--font-heading);font-size:20px;animation:ptFadeSlide .4s both">{{ t.chooseArea }}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)">
+            <sc-for list="{{ dxOptions }}" as="o" hint-placeholder-count="4">
+              <div onClick="{{ o.pick }}" style="padding:var(--space-6) var(--space-4);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-bg) 50%, transparent);border:1px solid var(--color-divider);cursor:pointer;text-align:center;animation:ptFadeSlide .5s both;animation-delay:{{ o.delay }};transition:transform .3s cubic-bezier(.34,1.6,.64,1),border-color .25s,box-shadow .25s" style-hover="transform:translateY(-3px);border-color:var(--color-accent);box-shadow:0 0 20px color-mix(in srgb, var(--color-accent) 14%, transparent)" style-active="transform:scale(.96)">
+                <div style="font-weight:600;font-size:14.5px">{{ o.label }}</div>
+                <div style="font-size:11.5px;opacity:0.55;margin-top:5px;line-height:1.45">{{ o.desc }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ASSESSMENT -->
+        <sc-if value="{{ mAssess }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:12px;animation:ptFadeSlide .4s both">
+            <div style="font-family:var(--font-heading);font-size:20px;flex:1">{{ assess.title }}</div>
+            <span style="font-size:11.5px;opacity:0.55;font-variant-numeric:tabular-nums">{{ assess.progressPct }}%</span>
+          </div>
+          <div style="height:3px;border-radius:3px;background:var(--color-neutral-800);overflow:hidden;flex-shrink:0">
+            <div style="height:100%;background:var(--color-accent);width:{{ assess.progressPct }}%;transition:width .5s cubic-bezier(.22,.8,.36,1)"></div>
+          </div>
+          <sc-for list="{{ assess.joints }}" as="j" hint-placeholder-count="3">
+            <div style="font-size:10.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;margin-top:var(--space-2)" dir="ltr">{{ j.name }}</div>
+            <sc-for list="{{ j.motions }}" as="m" hint-placeholder-count="3">
+              <div style="padding:8px 0 10px;border-top:1px solid var(--color-divider)">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+                  <span style="font-size:13.5px;font-weight:500" dir="ltr">{{ m.name }}</span>
+                  <span style="font-size:11px;opacity:0.5" dir="ltr">{{ m.normLabel }}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:14px" dir="ltr">
+                  <input type="range" min="0" max="{{ m.max }}" value="{{ m.value }}" onChange="{{ m.onChange }}" style="flex:1"/>
+                  <span style="min-width:48px;text-align:end;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums">{{ m.valueLabel }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </sc-for>
+          <div style="font-size:10.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;margin-top:var(--space-3)">{{ t.mmtSection }}</div>
+          <sc-for list="{{ assess.muscles }}" as="mu" hint-placeholder-count="4">
+            <div style="padding:8px 0 10px;border-top:1px solid var(--color-divider)">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+                <span style="font-size:13.5px;font-weight:500" dir="ltr">{{ mu.name }}</span>
+                <span style="font-size:11.5px;color:var(--color-accent-300);font-variant-numeric:tabular-nums" dir="ltr">{{ mu.gradeLabel }}</span>
+              </div>
+              <div style="display:flex;gap:6px" dir="ltr">
+                <sc-for list="{{ mu.grades }}" as="g" hint-placeholder-count="6">
+                  <div onClick="{{ g.pick }}" style="flex:1;padding:7px 0;border-radius:var(--radius-sm);border:1px solid {{ g.borderColor }};background:{{ g.bg }};color:{{ g.color }};text-align:center;font-weight:600;font-size:13px;cursor:pointer;transition:all .25s cubic-bezier(.34,1.5,.64,1)" style-hover="border-color:var(--color-accent)" style-active="transform:scale(.88)">{{ g.value }}</div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+          <div style="display:flex;gap:var(--space-2);justify-content:flex-end;margin-top:var(--space-2)">
+            <button type="button" class="btn btn-secondary" onClick="{{ closeModal }}">{{ t.cancel }}</button>
+            <button type="button" class="btn btn-primary" onClick="{{ finishAssessment }}">{{ t.generateReport }}</button>
+          </div>
+        </sc-if>
+
+        <!-- REPORT -->
+        <sc-if value="{{ mReport }}" hint-placeholder-val="{{ false }}">
+          <div style="font-family:var(--font-heading);font-size:20px;animation:ptFadeSlide .4s both">{{ t.reportTitle }}</div>
+          <div style="display:flex;align-items:center;gap:var(--space-6);padding:var(--space-4);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-bg) 55%, transparent);border:1px solid var(--color-divider);animation:ptFadeSlide .45s both">
+            <div style="width:116px;height:116px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--color-accent) {{ report.ringPct }}%, var(--color-neutral-800) 0);box-shadow:0 0 24px color-mix(in srgb, var(--color-accent) 18%, transparent)">
+              <div style="width:90px;height:90px;border-radius:50%;background:var(--color-surface);display:grid;place-items:center;text-align:center">
+                <div>
+                  <div style="font-size:25px;font-weight:600;font-variant-numeric:tabular-nums">{{ report.ringValue }}%</div>
+                  <div style="font-size:9px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.5">{{ t.overallRom }}</div>
+                </div>
+              </div>
+            </div>
+            <div style="flex:1">
+              <div style="font-size:13px;opacity:0.75;line-height:1.6">{{ report.summary }}</div>
+              <div style="display:flex;gap:8px;margin-top:12px">
+                <span class="tag tag-accent" dir="ltr">MMT {{ report.mmtAvg }}/5</span>
+                <span class="tag tag-neutral">{{ report.date }}</span>
+              </div>
+            </div>
+          </div>
+          <sc-for list="{{ report.joints }}" as="j" hint-placeholder-count="3">
+            <div style="padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-bg) 45%, transparent);border:1px solid var(--color-divider);animation:ptFadeSlide .5s both;animation-delay:{{ j.delay }}">
+              <div style="font-family:var(--font-heading);font-size:14px;margin-bottom:4px" dir="ltr">{{ j.name }}</div>
+              <sc-for list="{{ j.motions }}" as="m" hint-placeholder-count="3">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-top:1px solid var(--color-divider);font-size:13px">
+                  <span style="opacity:0.7" dir="ltr">{{ m.name }}</span>
+                  <span style="font-weight:600;display:flex;align-items:center;gap:8px"><span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-variant-numeric:tabular-nums">{{ m.valueLabel }}</span><span class="tag tag-accent" dir="ltr">{{ m.pct }}%</span></span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+          <div style="padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-bg) 45%, transparent);border:1px solid var(--color-divider);animation:ptFadeSlide .55s both">
+            <div style="font-family:var(--font-heading);font-size:14px;margin-bottom:4px">{{ t.mmtSection }}</div>
+            <sc-for list="{{ report.muscles }}" as="mu" hint-placeholder-count="4">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-top:1px solid var(--color-divider);font-size:13px">
+                <span style="opacity:0.7" dir="ltr">{{ mu.name }}</span>
+                <span class="tag tag-outline" dir="ltr">{{ mu.gradeLabel }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <button type="button" class="btn btn-primary btn-block" onClick="{{ closeModal }}">{{ t.doneButton }}</button>
+        </sc-if>
+
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ══ JARVIS — AI CLINICAL ASSISTANT ══ -->
+  <sc-if value="{{ jarvisMounted }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="jarvis" style="position:fixed;bottom:88px;insetInlineEnd:22px;z-index:60;width:min(390px, calc(100vw - 44px));display:flex;flex-direction:column;border-radius:var(--radius-lg);background:color-mix(in srgb, var(--color-surface) 92%, var(--color-section-glow));backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid color-mix(in srgb, var(--color-text) 14%, transparent);box-shadow:var(--shadow-lg);overflow:hidden;animation:{{ jarvisAnim }} .38s cubic-bezier(.3,1.25,.5,1) both">
+      <div style="display:flex;align-items:center;gap:11px;padding:var(--space-4);border-bottom:1px solid var(--color-divider)">
+        <span style="position:relative;width:36px;height:36px;flex-shrink:0;display:grid;place-items:center;border-radius:50%;border:1px solid var(--color-accent);color:var(--color-accent);background:color-mix(in srgb, var(--color-accent) 9%, transparent);animation:ptBreathe 4s ease-in-out infinite">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>
+        </span>
+        <span style="flex:1;min-width:0">
+          <span style="display:block;font-family:var(--font-heading);font-weight:500;font-size:15px">Jarvis</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:10.5px;opacity:0.55;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);flex-shrink:0"></span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.jarvisRole }}</span></span>
+        </span>
+        <button type="button" class="btn btn-secondary btn-icon" onClick="{{ jarvis.expand }}" title="JARVIS OS">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7.5 7.5M3 21l7.5-7.5"/></svg>
+        </button>
+        <button type="button" class="btn btn-icon" onClick="{{ jarvis.toggleVoice }}" title="{{ t.jarvisVoice }}" style="border:1px solid {{ jarvis.voiceBorder }};color:{{ jarvis.voiceColor }}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/></svg>
+        </button>
+        <button type="button" class="btn btn-secondary btn-icon" onClick="{{ jarvis.toggle }}" aria-label="close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div ref="{{ jarvis.msgsRef }}" style="height:min(340px, 42vh);overflow-y:auto;overflow-x:hidden;padding:var(--space-4);display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ jarvisMsgs }}" as="msg" hint-placeholder-count="1">
+          <div dir="auto" style="align-self:{{ msg.align }};max-width:86%;padding:9px 13px;border-radius:12px;background:{{ msg.bg }};border:1px solid {{ msg.border }};font-size:13px;line-height:1.65;white-space:pre-wrap;animation:ptFadeSlide .35s cubic-bezier(.22,.8,.36,1) both">{{ msg.text }}</div>
+        </sc-for>
+        <sc-if value="{{ jarvisBusy }}" hint-placeholder-val="{{ false }}">
+          <div style="align-self:flex-start;display:flex;gap:4px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb, var(--color-bg) 55%, transparent);border:1px solid var(--color-divider)">
+            <span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);animation:ptBounce 1.1s ease-in-out infinite"></span>
+            <span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);animation:ptBounce 1.1s ease-in-out 0.15s infinite"></span>
+            <span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);animation:ptBounce 1.1s ease-in-out 0.3s infinite"></span>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 var(--space-4) var(--space-3)">
+        <sc-for list="{{ jarvisChips }}" as="c" hint-placeholder-count="3">
+          <span onClick="{{ c.send }}" style="font-size:11px;padding:5px 11px;border-radius:999px;border:1px solid var(--color-divider);cursor:pointer;opacity:0.8;transition:border-color .25s,color .25s,transform .25s cubic-bezier(.34,1.6,.64,1);white-space:nowrap" style-hover="border-color:var(--color-accent);color:var(--color-accent)" style-active="transform:scale(.94)">{{ c.label }}</span>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;gap:8px;padding:var(--space-3) var(--space-4) var(--space-4);border-top:1px solid var(--color-divider)">
+        <input class="input" value="{{ jarvisInput }}" onInput="{{ jarvis.onInput }}" onKeyDown="{{ jarvis.onKey }}" placeholder="{{ t.jarvisPlaceholder }}" style="flex:1;background:color-mix(in srgb, var(--color-bg) 55%, transparent)"/>
+        <button type="button" class="btn btn-primary btn-icon" onClick="{{ jarvis.send }}" aria-label="send" style="width:36px;height:36px;flex-shrink:0">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="transform:{{ sendFlip }}"><path d="M3.5 11.5L20.5 3.5 14 20.5l-2.5-6.5z"/><path d="M20.5 3.5L11.5 14"/></svg>
+        </button>
+      </div>
+    </div>
+  </sc-if>
+
+  <div onClick="{{ jarvis.toggle }}" style="position:fixed;bottom:22px;insetInlineEnd:22px;z-index:60;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:color-mix(in srgb, var(--color-surface) 82%, var(--color-section-glow));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--color-accent);color:var(--color-accent);animation:ptBreathe 4.5s ease-in-out infinite;transition:transform .3s cubic-bezier(.34,1.6,.64,1)" style-hover="transform:scale(1.08)" style-active="transform:scale(.9)" title="Jarvis">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>
+    <sc-if value="{{ jarvisUnread }}" hint-placeholder-val="{{ false }}">
+      <span style="position:absolute;top:3px;insetInlineEnd:3px;width:10px;height:10px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 8px var(--color-accent);border:2px solid var(--color-bg)"></span>
+    </sc-if>
+  </div>
+
+  <!-- ══ JARVIS BOOT SEQUENCE ══ -->
+  <sc-if value="{{ bootActive }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="jarvis-os" style="position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;pointer-events:{{ bootPointer }};background:radial-gradient(900px 620px at 50% 44%, color-mix(in srgb, var(--color-section) 26%, transparent), transparent 72%), color-mix(in srgb, var(--color-bg) 28%, black);animation:{{ bootOutAnim }}">
+
+      <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 0 7px color-mix(in srgb, var(--color-accent) 45%, transparent));opacity:{{ circuitOpacity }};transition:opacity 1.2s ease">
+        <g fill="none" stroke="var(--color-accent-600)" stroke-width="1.3" opacity="0.75">
+          <path d="M0 140 H360 V400 H510" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ptTrace 1.7s cubic-bezier(.4,0,.2,1) 0.25s forwards"></path>
+          <path d="M0 620 H300 V440 H510" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ptTrace 1.7s cubic-bezier(.4,0,.2,1) 0.45s forwards"></path>
+          <path d="M420 0 V220 H575 V320" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ptTrace 1.7s cubic-bezier(.4,0,.2,1) 0.6s forwards"></path>
+          <path d="M780 0 V180 H640 V320" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ptTrace 1.7s cubic-bezier(.4,0,.2,1) 0.35s forwards"></path>
+          <path d="M1200 200 H850 V400 H690" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ptTrace 1.7s cubic-bezier(.4,0,.2,1) 0.5s forwards"></path>
+          <path d="M1200 640 H880 V440 H690" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ptTrace 1.7s cubic-bezier(.4,0,.2,1) 0.7s forwards"></path>
+          <path d="M500 800 V600 H565 V480" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ptTrace 1.7s cubic-bezier(.4,0,.2,1) 0.55s forwards"></path>
+          <path d="M720 800 V630 H655 V480" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ptTrace 1.7s cubic-bezier(.4,0,.2,1) 0.8s forwards"></path>
+        </g>
+        <g fill="var(--color-accent)">
+          <circle cx="510" cy="400" r="3" style="opacity:0;animation:ptFadeIn .5s 1.9s forwards"></circle>
+          <circle cx="510" cy="440" r="3" style="opacity:0;animation:ptFadeIn .5s 2.1s forwards"></circle>
+          <circle cx="575" cy="320" r="3" style="opacity:0;animation:ptFadeIn .5s 2.2s forwards"></circle>
+          <circle cx="640" cy="320" r="3" style="opacity:0;animation:ptFadeIn .5s 2.0s forwards"></circle>
+          <circle cx="690" cy="400" r="3" style="opacity:0;animation:ptFadeIn .5s 2.15s forwards"></circle>
+          <circle cx="690" cy="440" r="3" style="opacity:0;animation:ptFadeIn .5s 2.3s forwards"></circle>
+          <circle cx="565" cy="480" r="3" style="opacity:0;animation:ptFadeIn .5s 2.25s forwards"></circle>
+          <circle cx="655" cy="480" r="3" style="opacity:0;animation:ptFadeIn .5s 2.4s forwards"></circle>
+        </g>
+      </svg>
+
+      <sc-for list="{{ bootParticles }}" as="pt" hint-placeholder-count="6">
+        <span style="position:absolute;left:{{ pt.left }};top:{{ pt.top }};width:{{ pt.size }};height:{{ pt.size }};border-radius:50%;background:var(--color-accent-400);opacity:0;animation:ptFloat {{ pt.dur }} linear {{ pt.delay }} infinite"></span>
+      </sc-for>
+
+      <div style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;max-width:640px;padding:24px;transform:translateY({{ coreShift }}) scale({{ coreScale }});transition:transform 1.15s cubic-bezier(.3,1.12,.5,1)">
+        <div style="position:relative;width:128px;height:128px;animation:ptCore 1.8s cubic-bezier(.22,.8,.36,1) 0.5s both">
+          <span style="position:absolute;inset:-16px;border-radius:50%;border:1px solid var(--color-accent-800);border-top-color:var(--color-accent);animation:ptSpin 7s linear infinite;opacity:0.8"></span>
+          <span style="position:absolute;inset:0;border-radius:28px;display:grid;place-items:center;border:1px solid var(--color-accent);background:color-mix(in srgb, var(--color-accent) 8%, transparent);backdrop-filter:blur(10px);color:var(--color-accent);animation:ptBreathe 3.2s ease-in-out infinite">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>
+          </span>
+        </div>
+
+        <div style="margin-top:26px;animation:ptFadeSlide .8s cubic-bezier(.22,.8,.36,1) 1.5s both">
+          <div style="font-family:var(--font-heading);font-size:24px;font-weight:500;letter-spacing:0.32em;padding-inline-start:0.32em" dir="ltr">JARVIS</div>
+          <div style="font-size:11px;opacity:0.5;margin-top:5px;letter-spacing:0.08em" dir="ltr">MEDICAL AI OS · PHYSIOTRACK</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:7px;min-width:280px;opacity:{{ logOpacity }};max-height:{{ logMaxH }};overflow:hidden;margin-top:{{ logMarginTop }};transition:opacity .6s, max-height .9s cubic-bezier(.22,.8,.36,1), margin-top .9s cubic-bezier(.22,.8,.36,1)" dir="ltr">
+          <sc-for list="{{ bootStatus }}" as="b" hint-placeholder-count="6">
+            <div style="display:flex;align-items:center;gap:10px;font-size:11.5px;letter-spacing:0.05em;opacity:0;animation:ptFadeSlide .55s cubic-bezier(.22,.8,.36,1) {{ b.delay }} forwards;text-align:start">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 7px var(--color-accent);flex-shrink:0"></span>
+              <span style="flex:1;opacity:0.8">{{ b.label }}</span>
+              <span style="color:var(--color-accent)">✓</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:center;gap:3px;height:24px;margin-top:22px;opacity:{{ coreWaveOpacity }};transition:opacity .4s">
+          <sc-for list="{{ waveBars }}" as="w" hint-placeholder-count="8">
+            <span style="width:3px;height:20px;border-radius:2px;background:var(--color-accent);box-shadow:0 0 6px color-mix(in srgb, var(--color-accent) 40%, transparent);transform:scaleY({{ w.h }});transition:transform .09s linear"></span>
+          </sc-for>
+        </div>
+
+        <div dir="auto" style="min-height:30px;margin-top:14px;font-size:15.5px;line-height:1.6;color:color-mix(in srgb, var(--color-text) 92%, transparent);opacity:{{ bootCaptionOpacity }};transition:opacity .35s ease">{{ bootCaption }}</div>
+      </div>
+
+      <!-- HUD panels -->
+      <sc-if value="{{ osHud }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:150px 4vw 130px;display:grid;grid-template-columns:1.15fr 1fr 1fr;grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:14px;pointer-events:none">
+          <sc-if value="{{ h1 }}" hint-placeholder-val="{{ false }}">
+            <div style="grid-column:1;grid-row:1 / span 2;pointer-events:auto;overflow-y:auto;padding:var(--space-4);border-radius:var(--radius-lg);background:color-mix(in srgb, var(--color-surface) 55%, transparent);backdrop-filter:blur(18px);border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);animation:ptHudIn .75s cubic-bezier(.3,1.2,.5,1) both">
+              <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent);margin-bottom:10px"><span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 7px var(--color-accent)"></span>{{ t.hudApptsTitle }}</div>
+              <sc-for list="{{ hudAppts }}" as="a" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 2px;border-top:1px solid var(--color-divider)">
+                  <span style="font-family:var(--font-heading);font-size:14px;color:var(--color-accent);font-variant-numeric:tabular-nums;white-space:nowrap;min-width:74px;text-align:start" dir="ltr">{{ a.time }}</span>
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.name }}</span>
+                    <span style="display:block;font-size:11px;opacity:0.55;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" dir="ltr">{{ a.diag }}</span>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ h2 }}" hint-placeholder-val="{{ false }}">
+            <div style="grid-column:2;grid-row:1;pointer-events:auto;overflow-y:auto;padding:var(--space-4);border-radius:var(--radius-lg);background:color-mix(in srgb, var(--color-surface) 55%, transparent);backdrop-filter:blur(18px);border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);animation:ptHudIn .75s cubic-bezier(.3,1.2,.5,1) both">
+              <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent);margin-bottom:10px"><span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 7px var(--color-accent)"></span>{{ t.hudQueueTitle }}</div>
+              <sc-for list="{{ hudQueue }}" as="qp" hint-placeholder-count="2">
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 2px;border-top:1px solid var(--color-divider)">
+                  <span style="width:32px;height:32px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;font-weight:600;font-size:12px;background:var(--color-accent-900);color:var(--color-accent-200)">{{ qp.initials }}</span>
+                  <span style="flex:1;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ qp.name }}</span>
+                  <span class="tag {{ qp.tagClass }}" style="white-space:nowrap">{{ qp.status }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ h3 }}" hint-placeholder-val="{{ false }}">
+            <div style="grid-column:3;grid-row:1;pointer-events:auto;overflow-y:auto;padding:var(--space-4);border-radius:var(--radius-lg);background:color-mix(in srgb, var(--color-surface) 55%, transparent);backdrop-filter:blur(18px);border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);animation:ptHudIn .75s cubic-bezier(.3,1.2,.5,1) both">
+              <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent);margin-bottom:10px"><span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 7px var(--color-accent)"></span>{{ t.hudUpcomingTitle }}</div>
+              <sc-for list="{{ hudUpcoming }}" as="u" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:10px;padding:9px 2px;border-top:1px solid var(--color-divider);font-size:12.5px">
+                  <span style="color:var(--color-accent);font-variant-numeric:tabular-nums;white-space:nowrap" dir="ltr">{{ u.time }}</span>
+                  <span style="flex:1;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ u.name }}</span>
+                  <span style="font-size:10.5px;opacity:0.5;white-space:nowrap">{{ u.day }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ h4 }}" hint-placeholder-val="{{ false }}">
+            <div style="grid-column:2;grid-row:2;pointer-events:auto;overflow-y:auto;padding:var(--space-4);border-radius:var(--radius-lg);background:color-mix(in srgb, var(--color-surface) 55%, transparent);backdrop-filter:blur(18px);border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);animation:ptHudIn .75s cubic-bezier(.3,1.2,.5,1) both">
+              <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent);margin-bottom:10px"><span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 7px var(--color-accent)"></span>{{ t.cdssTitle }}</div>
+              <sc-for list="{{ hudInsights }}" as="hi" hint-placeholder-count="3">
+                <div style="display:flex;gap:9px;padding:8px 2px;border-top:1px solid var(--color-divider)">
+                  <span style="width:5px;height:5px;border-radius:50%;background:{{ hi.color }};box-shadow:0 0 6px {{ hi.color }};flex-shrink:0;margin-top:5px"></span>
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font-size:10.5px;opacity:0.55">{{ hi.patient }}</span>
+                    <span style="display:block;font-size:12px;font-weight:500;line-height:1.45;margin-top:1px">{{ hi.title }}</span>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ h5 }}" hint-placeholder-val="{{ false }}">
+            <div style="grid-column:3;grid-row:2;pointer-events:auto;overflow-y:auto;padding:var(--space-4);border-radius:var(--radius-lg);background:color-mix(in srgb, var(--color-surface) 55%, transparent);backdrop-filter:blur(18px);border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);animation:ptHudIn .75s cubic-bezier(.3,1.2,.5,1) both">
+              <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent);margin-bottom:10px"><span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 7px var(--color-accent)"></span>{{ t.hudNotifsTitle }}</div>
+              <sc-for list="{{ hudNotifs }}" as="n" hint-placeholder-count="3">
+                <div style="padding:8px 10px;margin-top:7px;border-radius:var(--radius-md);background:color-mix(in srgb, {{ n.color }} 7%, transparent);border-inline-start:2px solid {{ n.color }};font-size:11.5px;line-height:1.55">{{ n.text }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- Chat dock -->
+      <sc-if value="{{ osChat }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);width:min(720px,92vw);display:flex;flex-direction:column;gap:10px;animation:ptRise .8s cubic-bezier(.3,1.2,.5,1) both">
+          <div ref="{{ jarvis.msgsRef }}" style="max-height:22vh;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:2px">
+            <sc-for list="{{ osMsgs }}" as="msg" hint-placeholder-count="1">
+              <div dir="auto" style="align-self:{{ msg.align }};max-width:78%;padding:9px 13px;border-radius:12px;background:{{ msg.bg }};backdrop-filter:blur(14px);border:1px solid {{ msg.border }};font-size:13px;line-height:1.65;white-space:pre-wrap;animation:ptFadeSlide .35s cubic-bezier(.22,.8,.36,1) both">{{ msg.text }}</div>
+            </sc-for>
+            <sc-if value="{{ jarvisBusy }}" hint-placeholder-val="{{ false }}">
+              <div style="align-self:flex-start;display:flex;gap:4px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb, var(--color-surface) 60%, transparent);border:1px solid var(--color-divider)">
+                <span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);animation:ptBounce 1.1s ease-in-out infinite"></span>
+                <span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);animation:ptBounce 1.1s ease-in-out 0.15s infinite"></span>
+                <span style="width:5px;height:5px;border-radius:50%;background:var(--color-accent);animation:ptBounce 1.1s ease-in-out 0.3s infinite"></span>
+              </div>
+            </sc-if>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-lg);background:color-mix(in srgb, var(--color-surface) 62%, transparent);backdrop-filter:blur(22px);border:1px solid color-mix(in srgb, var(--color-text) 13%, transparent);box-shadow:var(--shadow-md)">
+            <span style="display:flex;align-items:center;gap:3px;height:20px;flex-shrink:0">
+              <sc-for list="{{ waveBarsMini }}" as="w" hint-placeholder-count="5">
+                <span style="width:2.5px;height:16px;border-radius:2px;background:var(--color-accent);transform:scaleY({{ w.h }});transition:transform .09s linear"></span>
+              </sc-for>
+            </span>
+            <span style="font-size:10.5px;color:var(--color-accent-300);white-space:nowrap;flex-shrink:0">{{ osStatusLabel }}</span>
+            <input class="input" value="{{ jarvisInput }}" onInput="{{ jarvis.onInput }}" onKeyDown="{{ jarvis.onKey }}" placeholder="{{ t.jarvisPlaceholder }}" style="flex:1;background:transparent;border-color:transparent;min-width:0"/>
+            <sc-if value="{{ micVisible }}" hint-placeholder-val="{{ false }}">
+              <button type="button" class="btn btn-secondary btn-icon" onClick="{{ jarvis.mic }}" title="voice input" style="color:{{ micColor }};border-color:{{ micBorder }};flex-shrink:0">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/></svg>
+              </button>
+            </sc-if>
+            <button type="button" class="btn btn-primary btn-icon" onClick="{{ jarvis.send }}" aria-label="send" style="flex-shrink:0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="transform:{{ sendFlip }}"><path d="M3.5 11.5L20.5 3.5 14 20.5l-2.5-6.5z"/><path d="M20.5 3.5L11.5 14"/></svg>
+            </button>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="position:absolute;top:18px;insetInlineEnd:20px;display:flex;gap:8px;animation:ptFadeIn 1s 1.4s both">
+        <button type="button" class="btn btn-secondary btn-icon" onClick="{{ toggleBootVoice }}" title="voice" style="color:{{ bootVoiceColor }}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6.5 9H3v6h3.5L11 19zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9.5 9.5 0 0 1 0 13"/></svg>
+        </button>
+        <button type="button" class="btn btn-secondary" onClick="{{ skipBoot }}" style="font-size:12px">{{ osTopBtnLabel }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 900}, &quot;defaultLanguage&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;ar&quot;, &quot;options&quot;: [&quot;ar&quot;, &quot;en&quot;], &quot;tsType&quot;: &quot;'ar'|'en'&quot;, &quot;section&quot;: &quot;Behavior&quot;}, &quot;showIntro&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Behavior&quot;}, &quot;reducedMotion&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Behavior&quot;}}">
+/* ────────────────────────────────────────────────────────────────
+   PhysioTrack v2 — registries (single source of truth)
+   Adding a nav view, a device plugin, or an assessment protocol
+   means adding one entry here; the UI renders from these.
+   ──────────────────────────────────────────────────────────────── */
+
+const I18N = {
+  en: {
+    appName: "PhysioTrack", tagline: "Clinic OS", language: "Language",
+    doctorName: "Dr. Salma Al-Rashed", doctorRole: "Consultant Physiotherapist", onlineStatus: "Online · Clinic open",
+    navDashboard: "Dashboard", navPatients: "Patients", navAppointments: "Appointments", navInvoices: "Invoices",
+    navTeam: "Team", navAnatomy: "3D Anatomy", navDevices: "Devices",
+    subDashboard: "Today at a glance", subPatients: "Records & care plans", subAppointments: "Today's schedule",
+    subInvoices: "Billing overview", subTeam: "Clinic staff", subAnatomy: "Interactive atlas — module preview", subDevices: "Equipment & plugin hub",
+    kpiTotalPatients: "Total Patients", kpiSessionsToday: "Sessions Today", kpiRecoveryRate: "Avg. Recovery", kpiPendingInvoices: "Pending Invoices",
+    kpiMeta1: "active care plans", kpiMeta2: "3 completed", kpiMeta3: "across all plans", kpiMeta4: "awaiting payment",
+    alertsTitle: "Alerts", activePatientsTitle: "Active Patients", viewAll: "View all",
+    newPatient: "+ New Patient", progress: "Progress", searchPlaceholder: "Search patients or diagnoses…", noResults: "No patients match your search.",
+    colPatient: "Patient", colDiagnosis: "Diagnosis", colDay: "Day", colTime: "Time", colStatus: "Status",
+    colSessions: "Sessions", colAmount: "Amount", colName: "Name", colRole: "Role",
+    confirmed: "Confirmed", active: "Active", paid: "Paid", pending: "Pending", cancel: "Cancel",
+    newAssessment: "New Assessment", newAssessmentSub: "ROM & manual muscle testing", historyTitle: "Assessment History",
+    newPatientTitle: "New Patient", fieldName: "Full Name", fieldAge: "Age", fieldGender: "Gender",
+    fieldDiagnosis: "Diagnosis", fieldRegion: "Region", fieldTotalSessions: "Total Sessions", saveButton: "Save Patient",
+    male: "Male", female: "Female",
+    chooseArea: "Choose Assessment Area", mmtSection: "Manual Muscle Test (MMT)", generateReport: "Generate Report",
+    reportTitle: "Assessment Report", overallRom: "Overall ROM", doneButton: "Done", sessions: "sessions",
+    soonTag: "Coming Soon",
+    anatomyTitle: "3D Anatomy Atlas",
+    anatomyTeaser: "Explore the musculoskeletal system on an interactive model, matched to each patient.",
+    anatomyTeaserShort: "Interactive body model",
+    anatomyLead: "A fully interactive 3D atlas is on its way — built on the open Z-Anatomy dataset, launched from any patient profile with the model matched to their record.",
+    anatomyF1: "Muscles, bones, joints, ligaments, nerves & vessels",
+    anatomyF2: "Gender-matched models from the patient record",
+    anatomyF3: "Isolate, fade and layer controls with TA2 terminology",
+    anatomyF4: "Z-Anatomy dataset · CC-BY-SA 4.0",
+    anatomyCta: "Module locked",
+    devicesLead: "PhysioTrack connects to rehabilitation equipment through a plugin architecture — each device is a self-contained plugin the core app discovers at runtime.",
+    pluginArch: "Plugin architecture v1",
+    pairedTitle: "Paired devices — demo",
+    catalogTitle: "Supported plugin catalog",
+    statusConnected: "Connected", statusReady: "Plugin ready", statusPlanned: "Planned",
+    bootSkip: "Skip", osEnter: "Enter clinic", osSpeaking: "Speaking…", osListening: "Listening…", osOnline: "Online",
+    hudApptsTitle: "Today's appointments", hudQueueTitle: "Patient queue", hudUpcomingTitle: "Upcoming sessions", hudNotifsTitle: "Notifications",
+    queueNow: "In session", queueWaiting: "Waiting",
+    cdssTitle: "AI Clinical Insights", cdssTag: "CDSS", cdssEmpty: "No active insights — data looks stable.",
+    cdssDisclaimer: "These are suggestions generated from the record. The final clinical decision always remains with the therapist.",
+    cdssWhy: "Clinical reasoning", cdssFindings: "Triggered by", cdssConfidence: "Confidence",
+    confHigh: "High", confMod: "Moderate", confLow: "Low",
+    actAccept: "Accept", actDone: "Mark completed", actDismiss: "Dismiss", actHide: "Hide similar",
+    stAccepted: "Accepted", stDone: "Completed",
+    notePlaceholder: "Add a note for the record…",
+    sevGreen: "Progression", sevBlue: "Recommendation", sevYellow: "Reassessment", sevOrange: "Caution", sevRed: "Urgent",
+    grpReassess: "Recommended reassessment", grpHistory: "History update — ask about", grpTests: "Suggested special tests",
+    grpDiff: "Differentials to consider (not a diagnosis)", grpProgress: "Suggested progression", grpStrategy: "Suggested strategy",
+    grpCompliance: "Compliance strategies", grpDischarge: "Discharge preparation", grpRts: "Objective tests before clearance",
+    jarvisRole: "AI Clinical Assistant", jarvisPlaceholder: "Ask Jarvis…", jarvisVoice: "Voice replies",
+    jarvisOffline: "I couldn't reach the service just now — try again in a moment.",
+    chipSchedule: "Today's schedule", chipReassess: "Who needs reassessment?", chipInvoices: "Pending invoices", chipPatient: "Summarize this patient",
+    reportSummaryGood: "Range of motion is approaching functional norms. Continue the current plan with progressive loading.",
+    reportSummaryFair: "Moderate limitation of range remains. Emphasize mobility work before strengthening blocks.",
+    reportSummaryLow: "Significant restriction recorded. Prioritize pain management and gentle assisted mobility.",
+  },
+  ar: {
+    appName: "PhysioTrack", tagline: "نظام العيادة", language: "اللغة",
+    doctorName: "د. سلمى الراشد", doctorRole: "أخصائية علاج طبيعي استشارية", onlineStatus: "متصلة · العيادة مفتوحة",
+    navDashboard: "لوحة التحكم", navPatients: "المرضى", navAppointments: "المواعيد", navInvoices: "الفواتير",
+    navTeam: "الفريق", navAnatomy: "التشريح ثلاثي الأبعاد", navDevices: "الأجهزة",
+    subDashboard: "نظرة على اليوم", subPatients: "السجلات وخطط العلاج", subAppointments: "جدول اليوم",
+    subInvoices: "نظرة على الفوترة", subTeam: "طاقم العيادة", subAnatomy: "أطلس تفاعلي — معاينة الوحدة", subDevices: "المعدات ومركز الإضافات",
+    kpiTotalPatients: "إجمالي المرضى", kpiSessionsToday: "جلسات اليوم", kpiRecoveryRate: "معدل التعافي", kpiPendingInvoices: "فواتير معلّقة",
+    kpiMeta1: "خطط علاج نشطة", kpiMeta2: "اكتملت 3", kpiMeta3: "عبر جميع الخطط", kpiMeta4: "بانتظار السداد",
+    alertsTitle: "تنبيهات", activePatientsTitle: "المرضى النشطون", viewAll: "عرض الكل",
+    newPatient: "+ مريض جديد", progress: "التقدّم", searchPlaceholder: "ابحث عن مريض أو تشخيص…", noResults: "لا يوجد مرضى مطابقون لبحثك.",
+    colPatient: "المريض", colDiagnosis: "التشخيص", colDay: "اليوم", colTime: "الوقت", colStatus: "الحالة",
+    colSessions: "الجلسات", colAmount: "المبلغ", colName: "الاسم", colRole: "الدور",
+    confirmed: "مؤكّد", active: "نشط", paid: "مسدّدة", pending: "معلّقة", cancel: "إلغاء",
+    newAssessment: "تقييم جديد", newAssessmentSub: "المدى الحركي واختبار العضلات", historyTitle: "سجل التقييمات",
+    newPatientTitle: "مريض جديد", fieldName: "الاسم الكامل", fieldAge: "العمر", fieldGender: "الجنس",
+    fieldDiagnosis: "التشخيص", fieldRegion: "المنطقة", fieldTotalSessions: "عدد الجلسات", saveButton: "حفظ المريض",
+    male: "ذكر", female: "أنثى",
+    chooseArea: "اختر منطقة التقييم", mmtSection: "اختبار العضلات اليدوي (MMT)", generateReport: "إنشاء التقرير",
+    reportTitle: "تقرير التقييم", overallRom: "المدى الحركي الكلي", doneButton: "تم", sessions: "جلسة",
+    soonTag: "قريباً",
+    anatomyTitle: "أطلس التشريح ثلاثي الأبعاد",
+    anatomyTeaser: "استكشف الجهاز العضلي الهيكلي على نموذج تفاعلي مطابق لكل مريض.",
+    anatomyTeaserShort: "نموذج تفاعلي للجسم",
+    anatomyLead: "أطلس ثلاثي الأبعاد تفاعلي بالكامل في الطريق — مبني على بيانات Z-Anatomy المفتوحة، يُفتح من ملف أي مريض بنموذج مطابق لسجله.",
+    anatomyF1: "العضلات والعظام والمفاصل والأربطة والأعصاب والأوعية",
+    anatomyF2: "نماذج مطابقة لجنس المريض من السجل",
+    anatomyF3: "أدوات العزل والإخفاء والطبقات بمصطلحات TA2",
+    anatomyF4: "بيانات Z-Anatomy · رخصة CC-BY-SA 4.0",
+    anatomyCta: "الوحدة مقفلة",
+    devicesLead: "يتصل PhysioTrack بأجهزة إعادة التأهيل عبر بنية إضافات — كل جهاز إضافة مستقلة يكتشفها التطبيق تلقائياً.",
+    pluginArch: "بنية الإضافات v1",
+    pairedTitle: "الأجهزة المقترنة — تجريبي",
+    catalogTitle: "قائمة الإضافات المدعومة",
+    statusConnected: "متصل", statusReady: "جاهزة", statusPlanned: "مخطط لها",
+    bootSkip: "تخطّي", osEnter: "دخول العيادة", osSpeaking: "يتحدث…", osListening: "يستمع…", osOnline: "متصل",
+    hudApptsTitle: "مواعيد اليوم", hudQueueTitle: "طابور المرضى", hudUpcomingTitle: "الجلسات القادمة", hudNotifsTitle: "تنبيهات مهمة",
+    queueNow: "في الجلسة", queueWaiting: "بالانتظار",
+    cdssTitle: "رؤى سريرية ذكية", cdssTag: "CDSS", cdssEmpty: "لا توجد رؤى نشطة — البيانات مستقرة.",
+    cdssDisclaimer: "هذه اقتراحات مولّدة من السجل. القرار السريري النهائي يبقى دائماً للمعالج.",
+    cdssWhy: "التعليل السريري", cdssFindings: "استند إلى", cdssConfidence: "درجة الثقة",
+    confHigh: "عالية", confMod: "متوسطة", confLow: "منخفضة",
+    actAccept: "اعتماد", actDone: "تم التنفيذ", actDismiss: "تجاهل", actHide: "إخفاء المشابه",
+    stAccepted: "معتمدة", stDone: "منفّذة",
+    notePlaceholder: "أضف ملاحظة للسجل…",
+    sevGreen: "تقدّم", sevBlue: "توصية", sevYellow: "إعادة تقييم", sevOrange: "تنبيه", sevRed: "عاجل",
+    grpReassess: "إعادة التقييم الموصى بها", grpHistory: "تحديث التاريخ المرضي — اسأل عن", grpTests: "اختبارات خاصة مقترحة",
+    grpDiff: "تشخيصات تفريقية للنظر فيها (ليست تشخيصاً)", grpProgress: "التدرّج المقترح", grpStrategy: "الاستراتيجية المقترحة",
+    grpCompliance: "استراتيجيات الالتزام", grpDischarge: "التحضير للخروج", grpRts: "اختبارات موضوعية قبل السماح",
+    jarvisRole: "مساعد سريري ذكي", jarvisPlaceholder: "اسأل جارفس…", jarvisVoice: "الرد الصوتي",
+    jarvisOffline: "ما قدرت أتصل بالخدمة الآن — جرّب مرة ثانية بعد لحظات.",
+    chipSchedule: "جدول اليوم", chipReassess: "من يحتاج إعادة تقييم؟", chipInvoices: "الفواتير المعلّقة", chipPatient: "ملخص حالة المريض",
+    reportSummaryGood: "المدى الحركي يقترب من المعدلات الوظيفية. استمر في الخطة الحالية مع تحميل تدريجي.",
+    reportSummaryFair: "لا يزال هناك تقييد متوسط في المدى. ركّز على تمارين المرونة قبل مراحل التقوية.",
+    reportSummaryLow: "تم تسجيل تقييد كبير. الأولوية لإدارة الألم والحركة المساعدة اللطيفة.",
+  }
+};
+
+const NAV_REGISTRY = [
+  { key: "dashboard", labelKey: "navDashboard", subKey: "subDashboard", icon: "dashboard" },
+  { key: "patients", labelKey: "navPatients", subKey: "subPatients", icon: "patients" },
+  { key: "appointments", labelKey: "navAppointments", subKey: "subAppointments", icon: "appointments" },
+  { key: "invoices", labelKey: "navInvoices", subKey: "subInvoices", icon: "invoices" },
+  { key: "anatomy", labelKey: "navAnatomy", subKey: "subAnatomy", icon: "anatomy", soon: true },
+  { key: "devices", labelKey: "navDevices", subKey: "subDevices", icon: "devices" },
+  { key: "team", labelKey: "navTeam", subKey: "subTeam", icon: "team" },
+];
+
+/* Anatomy module slot — a future 3D engine mounts against this manifest
+   (same shape as a device plugin: the app core never changes). */
+const ANATOMY_MODULE = {
+  id: "atlas-3d", status: "coming_soon", engine: "three.js",
+  dataset: "Z-Anatomy (CC-BY-SA 4.0)", entry: null,
+  featureKeys: ["anatomyF1", "anatomyF2", "anatomyF3", "anatomyF4"],
+};
+
+/* Device plugin registry — one entry per supported device.
+   status: connected | ready (plugin implemented) | planned */
+const DEVICE_REGISTRY = [
+  { cat: "measure", en: "Digital Goniometer", ar: "مقياس زوايا رقمي", conn: "BLE", status: "ready" },
+  { cat: "measure", en: "Hand Dynamometer", ar: "مقياس قوة القبضة", conn: "BLE", status: "ready" },
+  { cat: "measure", en: "Force Plates", ar: "منصات قياس القوة", conn: "Wi-Fi", status: "planned" },
+  { cat: "measure", en: "Balance Platform", ar: "منصة التوازن", conn: "Wi-Fi", status: "planned" },
+  { cat: "sensors", en: "EMG Sensors", ar: "حساسات EMG", conn: "BLE", status: "ready" },
+  { cat: "sensors", en: "Inertial Sensors (IMU)", ar: "حساسات الحركة (IMU)", conn: "BLE", status: "ready" },
+  { cat: "sensors", en: "Motion Capture System", ar: "نظام التقاط الحركة", conn: "Wi-Fi", status: "planned" },
+  { cat: "sensors", en: "Pressure Sensors", ar: "حساسات الضغط", conn: "BLE", status: "planned" },
+  { cat: "sensors", en: "Wearables", ar: "الأجهزة القابلة للارتداء", conn: "BLE", status: "ready" },
+  { cat: "therapy", en: "TENS Device", ar: "جهاز TENS", conn: "BT", status: "ready" },
+  { cat: "therapy", en: "NMES Device", ar: "جهاز NMES", conn: "BT", status: "planned" },
+  { cat: "therapy", en: "Ultrasound Therapy", ar: "العلاج بالموجات فوق الصوتية", conn: "USB", status: "planned" },
+  { cat: "therapy", en: "Laser Therapy", ar: "العلاج بالليزر", conn: "USB", status: "planned" },
+  { cat: "therapy", en: "Shockwave Therapy", ar: "العلاج بالموجات التصادمية", conn: "USB", status: "planned" },
+  { cat: "connect", en: "Bluetooth Medical Devices", ar: "أجهزة طبية بلوتوث", conn: "BT", status: "ready" },
+  { cat: "connect", en: "BLE Sensor Mesh", ar: "شبكة حساسات BLE", conn: "BLE", status: "ready" },
+  { cat: "connect", en: "Wi-Fi Medical Equipment", ar: "معدات طبية Wi-Fi", conn: "Wi-Fi", status: "planned" },
+  { cat: "connect", en: "Smart Rehab Equipment", ar: "معدات تأهيل ذكية", conn: "Wi-Fi", status: "planned" },
+];
+const DEVICE_CATEGORIES = [
+  { id: "measure", en: "Measurement & Assessment", ar: "القياس والتقييم" },
+  { id: "sensors", en: "Sensors & Motion", ar: "الحساسات والحركة" },
+  { id: "therapy", en: "Therapy Modalities", ar: "أجهزة العلاج" },
+  { id: "connect", en: "Connectivity", ar: "الاتصال" },
+];
+const PAIRED_DEMO = [
+  { name: "Goniometer DG-200", metaEn: "BLE · battery 84%", metaAr: "BLE · البطارية 84%", icon: "angle" },
+  { name: "IMU Node ×3", metaEn: "BLE mesh · 120 Hz", metaAr: "شبكة BLE · ‏120 هرتز", icon: "wave" },
+];
+
+const DX_META = {
+  lower_back: { en: { label: "Lower Back", desc: "Lumbar spine & lower limb" }, ar: { label: "أسفل الظهر", desc: "الفقرات القطنية والطرف السفلي" } },
+  knee: { en: { label: "Knee", desc: "Knee & lower limb" }, ar: { label: "الركبة", desc: "الركبة والطرف السفلي" } },
+  shoulder: { en: { label: "Shoulder", desc: "Shoulder & upper limb" }, ar: { label: "الكتف", desc: "الكتف والطرف العلوي" } },
+  brain: { en: { label: "Neuro / Functional", desc: "Neurological & functional assessment" }, ar: { label: "عصبي", desc: "تقييم عصبي ووظيفي" } },
+};
+
+const CLINICAL_DATA = {
+  lower_back: { joints: [
+    { name: "Lumbar Spine", motions: [{ name: "Flexion", normal: 60 }, { name: "Extension", normal: 25 }, { name: "Lateral Flexion R", normal: 25 }, { name: "Rotation R", normal: 30 }] },
+    { name: "Hip", motions: [{ name: "Flexion", normal: 120 }, { name: "Extension", normal: 30 }, { name: "Abduction", normal: 45 }] },
+    { name: "Knee", motions: [{ name: "Flexion", normal: 135 }] },
+    { name: "Ankle", motions: [{ name: "Dorsiflexion", normal: 20 }, { name: "Plantarflexion", normal: 50 }] } ],
+    muscles: ["Hip Flexors (Iliopsoas)", "Hip Extensors (Glut Max)", "Knee Extensors (Quads)", "Knee Flexors (Hamstrings)", "Ankle DF (Tibialis Ant)", "Core Stabilizers"] },
+  knee: { joints: [
+    { name: "Knee", motions: [{ name: "Flexion", normal: 135 }, { name: "Extension", normal: 0 }, { name: "Hyperextension", normal: 10 }] },
+    { name: "Hip", motions: [{ name: "Flexion", normal: 120 }, { name: "Abduction", normal: 45 }] },
+    { name: "Ankle", motions: [{ name: "Dorsiflexion", normal: 20 }] } ],
+    muscles: ["Quadriceps (VMO, VL, RF)", "Hamstrings", "Gastrocnemius", "Hip Abductors", "Patellar Mobility"] },
+  shoulder: { joints: [
+    { name: "Shoulder (GH Joint)", motions: [{ name: "Flexion", normal: 180 }, { name: "Abduction", normal: 180 }, { name: "IR", normal: 70 }, { name: "ER", normal: 90 }] },
+    { name: "Elbow", motions: [{ name: "Flexion", normal: 150 }, { name: "Supination", normal: 80 }] },
+    { name: "Wrist", motions: [{ name: "Flexion", normal: 80 }, { name: "Extension", normal: 70 }] } ],
+    muscles: ["Deltoid (Ant/Mid/Post)", "Rotator Cuff", "Pectoralis Major", "Serratus Anterior", "Trapezius", "Biceps Brachii"] },
+  brain: { joints: [
+    { name: "Upper Limb (Affected Side)", motions: [{ name: "Shoulder Flexion", normal: 180 }, { name: "Elbow Flexion", normal: 150 }, { name: "Wrist Extension", normal: 70 }] },
+    { name: "Lower Limb (Affected Side)", motions: [{ name: "Hip Flexion", normal: 120 }, { name: "Knee Flexion", normal: 135 }, { name: "Ankle DF", normal: 20 }] } ],
+    muscles: ["Hip Flexors (Affected)", "Knee Extensors (Affected)", "Shoulder Abductors", "Core / Trunk Stability"] },
+};
+
+/* ────────────────────────────────────────────────────────────────
+   CDSS — Clinical Decision Support engine.
+   Pure functions over the patient record; every rule returns either
+   null or an insight card. Rules never diagnose and never override
+   the therapist — they suggest, with reasoning and confidence.
+   ──────────────────────────────────────────────────────────────── */
+
+const SEV_META = {
+  red:    { color: "oklch(0.66 0.13 25)",  labelKey: "sevRed" },
+  orange: { color: "oklch(0.72 0.11 55)",  labelKey: "sevOrange" },
+  yellow: { color: "oklch(0.79 0.09 95)",  labelKey: "sevYellow" },
+  blue:   { color: "var(--color-accent)",  labelKey: "sevBlue" },
+  green:  { color: "oklch(0.74 0.10 155)", labelKey: "sevGreen" },
+};
+const SEV_ORDER = ["red", "orange", "yellow", "blue", "green"];
+
+const SPECIAL_TESTS = {
+  shoulder: ["Neer", "Hawkins-Kennedy", "Empty Can", "Drop Arm", "External Rotation Lag", "Speed's Test", "Yergason's Test"],
+  knee: ["Lachman", "Anterior Drawer", "Posterior Drawer", "McMurray", "Thessaly", "Valgus Stress", "Varus Stress", "Effusion / girth measurement"],
+  lower_back: ["SLR", "Slump Test", "Repeated Movement Testing", "Prone Instability Test"],
+  brain: ["Myotomes", "Dermatomes", "Reflexes", "Coordination", "Berg Balance re-test", "10m Walk Test"],
+};
+const DIFFERENTIALS = {
+  shoulder: ["Rotator cuff re-tear", "Frozen shoulder", "Cervical radiculopathy", "Labral pathology", "Biceps tendinopathy"],
+  knee: ["Arthrofibrosis", "Persistent effusion", "Patellofemoral dysfunction", "CRPS", "Low-grade infection (refer)"],
+  lower_back: ["Lumbar stenosis", "Radiculopathy", "SIJ dysfunction", "Hip OA referral pattern", "Peripheral neuropathy"],
+  brain: ["Medication timing effect", "Orthostatic hypotension", "Depression / apathy", "New vascular event (refer)"],
+};
+const PROGRESSIONS = {
+  shoulder: ["Rotator cuff loading progression", "Functional reaching patterns", "Closed-chain scapular work", "Sport-specific throwing prep"],
+  knee: ["Single-leg squat", "Bulgarian split squat", "Single-leg RDL", "Hop training", "Agility ladder", "Perturbation training", "Running progression"],
+  lower_back: ["Core endurance blocks", "Motor control drills", "Functional lifting", "Anti-rotation training", "Movement variability"],
+  brain: ["Dynamic balance", "Dual-task gait", "Obstacle negotiation", "Weight shifting", "Upper-limb functional tasks", "Amplitude-based training"],
+};
+const RTS_TESTS = ["Hop test battery", "Y-Balance Test", "Strength symmetry (>90% LSI)", "Sport-specific drills under fatigue"];
+const HISTORY_QUESTIONS = ["Pain location change", "Pain intensity change", "Recent trauma", "New symptoms", "Night pain", "Numbness / tingling", "Weakness", "Fever", "Weight loss", "Medication changes", "New imaging", "Falls", "Work / activity changes", "HEP compliance", "Sleep quality", "Psychological stress", "Fear avoidance"];
+const REASSESS_ITEMS = ["Pain (NPRS)", "ROM", "MMT", "Functional outcome measures", "Gait", "Balance", "Swelling", "Special tests", "Posture", "Movement quality"];
+const COMPLIANCE_STRATEGIES = ["Review exercise technique", "Simplify the program", "Improve education", "Address barriers", "Motivational interviewing"];
+const DISCHARGE_ITEMS = ["Final reassessment", "Outcome measures", "Independent HEP", "Education", "Follow-up plan"];
+const PLATEAU_STRATEGIES = ["Change exercise strategy", "Increase exercise variability", "Review diagnosis", "Reassess goals", "Review compliance"];
+const RED_FLAG_LABELS = {
+  night_pain: { en: "Night pain", ar: "ألم ليلي" },
+  weight_loss: { en: "Unexplained weight loss", ar: "فقدان وزن غير مبرر" },
+  fever: { en: "Fever", ar: "حمّى" },
+  neuro_deficit: { en: "Progressive neurological deficit", ar: "عجز عصبي متفاقم" },
+};
+const EXPECTED_RATE = { brain: 5, knee: 8, shoulder: 8, lower_back: 9 }; // expected ROM %-points per ~3 sessions
+
+function romSeries(p) {
+  const hist = (p.history || []).slice().reverse().map(h => h.romPct);
+  return (p.metrics.romSeries || []).concat(hist);
+}
+function trendDelta(series, n) {
+  if (series.length < 2) return 0;
+  const window = series.slice(-Math.min(n, series.length));
+  return window[window.length - 1] - window[0];
+}
+
+/* Each rule: (p, ctx) -> insight | null.  ctx = { isAr, series, delta, pain, painDelta } */
+const CDSS_RULES = [
+  { id: "red_flag", sev: "red", conf: "confHigh",
+    test(p, c) {
+      const flags = p.metrics.flags || [];
+      if (!flags.length) return null;
+      const names = flags.map(f => RED_FLAG_LABELS[f] ? RED_FLAG_LABELS[f][c.isAr ? "ar" : "en"] : f);
+      return {
+        title: c.isAr ? "احتمال راية حمراء — يُنصح بمراجعة طبية عاجلة" : "Potential red flag — urgent medical review advised",
+        why: c.isAr
+          ? "سُجّلت مؤشرات (" + names.join("، ") + ") لا تُفسَّر بالحالة العضلية الهيكلية الحالية. هذا النمط يستدعي استبعاد أسباب جدية قبل الاستمرار في الخطة."
+          : "Recorded indicators (" + names.join(", ") + ") are not explained by the current musculoskeletal presentation. This pattern warrants excluding serious pathology before continuing the plan.",
+        findings: names.concat([(c.isAr ? "الالتزام بالبرنامج المنزلي " : "HEP adherence ") + p.metrics.hep + "%"]),
+        groups: [{ key: "grpHistory", items: ["Fever", "Weight loss", "Night pain pattern", "New imaging", "Medication changes"] }],
+      };
+    } },
+  { id: "regression", sev: "orange", conf: "confHigh",
+    test(p, c) {
+      if (c.delta >= -3 && c.painDelta <= 1) return null;
+      if (c.delta >= 0) return null;
+      return {
+        title: c.isAr ? "مؤشرات تراجع في الحالة" : "Condition appears to be deteriorating",
+        why: c.isAr
+          ? "المدى الحركي انخفض " + Math.abs(c.delta) + " نقاط مع عدم تحسن الألم عبر الجلسات الأخيرة. يُنصح بإعادة تقييم فورية ومراجعة الخطة وخفض شدة التمارين."
+          : "ROM dropped " + Math.abs(c.delta) + " points with no pain improvement across recent sessions. Immediate reassessment, plan review and reduced exercise intensity are advised.",
+        findings: [(c.isAr ? "اتجاه المدى الحركي: " : "ROM trend: ") + c.series.slice(-3).join(" → ") + "%", (c.isAr ? "الألم NPRS: " : "Pain NPRS: ") + p.metrics.pain.join(" → ")],
+        groups: [{ key: "grpReassess", items: REASSESS_ITEMS.slice(0, 6) }, { key: "grpDiff", items: DIFFERENTIALS[p.dxKey] || [] }],
+      };
+    } },
+  { id: "plateau", sev: "yellow", conf: "confMod",
+    test(p, c) {
+      if (c.series.length < 3) return null;
+      const last3 = c.series.slice(-3);
+      if (Math.max.apply(null, last3) - Math.min.apply(null, last3) > 1) return null;
+      return {
+        title: c.isAr ? "ثبات في التقدّم (Plateau)" : "Progress plateau detected",
+        why: c.isAr
+          ? "المدى الحركي مستقر عند ~" + last3[2] + "% عبر آخر ثلاث قياسات دون تغيّر ذي دلالة. تغيير الاستراتيجية أو مراجعة الأهداف قد يعيد التقدّم."
+          : "ROM has held at ~" + last3[2] + "% across the last three measurements with no meaningful change. A strategy change or goal review may restart progress.",
+        findings: [(c.isAr ? "آخر ثلاث قياسات: " : "Last three measurements: ") + last3.join(" → ") + "%"],
+        groups: [{ key: "grpStrategy", items: PLATEAU_STRATEGIES }, { key: "grpProgress", items: (PROGRESSIONS[p.dxKey] || []).slice(0, 3) }],
+      };
+    } },
+  { id: "slow_progress", sev: "yellow", conf: "confMod",
+    test(p, c) {
+      const expected = EXPECTED_RATE[p.dxKey] || 8;
+      if (c.delta <= 0 || c.delta >= expected * 0.5) return null;
+      return {
+        title: c.isAr ? "التقدّم أبطأ من المتوقع — يُقترح إعادة تقييم شاملة" : "Progress slower than expected — consider comprehensive reassessment",
+        why: c.isAr
+          ? "التحسن " + c.delta + " نقاط عبر آخر ثلاث جلسات، بينما المتوقع لهذه المرحلة من " + p.diag + " نحو " + expected + " نقاط. قبل مواصلة الخطة الحالية، يُنصح بإعادة تقييم شاملة وتحديث التاريخ المرضي."
+          : "Improvement is " + c.delta + " points over the last three sessions versus ~" + expected + " expected for this stage of " + p.diag + ". Before continuing the current plan, a comprehensive reassessment and history update are advised.",
+        findings: [(c.isAr ? "اتجاه المدى الحركي: " : "ROM trend: ") + c.series.slice(-3).join(" → ") + "%", (c.isAr ? "الألم NPRS: " : "Pain NPRS: ") + p.metrics.pain.join(" → "), (c.isAr ? "مواعيد فائتة: " : "Missed appointments: ") + p.metrics.missed],
+        groups: [
+          { key: "grpReassess", items: REASSESS_ITEMS },
+          { key: "grpHistory", items: HISTORY_QUESTIONS.slice(0, 10) },
+          { key: "grpTests", items: SPECIAL_TESTS[p.dxKey] || [] },
+          { key: "grpDiff", items: DIFFERENTIALS[p.dxKey] || [] },
+        ],
+      };
+    } },
+  { id: "compliance", sev: "orange", conf: "confHigh",
+    test(p, c) {
+      if ((p.metrics.hep || 100) >= 60) return null;
+      return {
+        title: c.isAr ? "التزام منخفض بالبرنامج المنزلي" : "Low home-exercise adherence",
+        why: c.isAr
+          ? "الالتزام المسجّل " + p.metrics.hep + "% مع " + p.metrics.missed + " مواعيد فائتة. معالجة العوائق وتبسيط البرنامج غالباً أجدى من تعديل التمارين نفسها."
+          : "Recorded adherence is " + p.metrics.hep + "% with " + p.metrics.missed + " missed appointments. Addressing barriers and simplifying the program usually beats changing the exercises themselves.",
+        findings: [(c.isAr ? "الالتزام: " : "Adherence: ") + p.metrics.hep + "%", (c.isAr ? "مواعيد فائتة: " : "Missed appointments: ") + p.metrics.missed],
+        groups: [{ key: "grpCompliance", items: COMPLIANCE_STRATEGIES }],
+      };
+    } },
+  { id: "progression", sev: "green", conf: "confHigh",
+    test(p, c) {
+      const expected = EXPECTED_RATE[p.dxKey] || 8;
+      if (c.delta < expected * 0.5) return null;
+      const rapid = c.delta >= expected * 1.5;
+      return {
+        title: c.isAr ? (rapid ? "تحسّن سريع — جاهز للتدرّج" : "تقدّم مُرضٍ — يُقترح تدرّج العلاج") : (rapid ? "Rapid improvement — ready to progress" : "Satisfactory progression — consider advancing the plan"),
+        why: c.isAr
+          ? "المدى الحركي تحسّن " + c.delta + " نقاط عبر آخر ثلاث قياسات مع انخفاض الألم من " + p.metrics.pain[0] + " إلى " + p.metrics.pain[p.metrics.pain.length - 1] + ". النمط يدعم زيادة الحمل والتعقيد الوظيفي — التدرّج أدناه خاص بتشخيص " + p.diag + "."
+          : "ROM improved " + c.delta + " points across the last three measurements while pain fell from " + p.metrics.pain[0] + " to " + p.metrics.pain[p.metrics.pain.length - 1] + ". The pattern supports increased load and functional demand — the progression below is specific to " + p.diag + ".",
+        findings: [(c.isAr ? "اتجاه المدى الحركي: " : "ROM trend: ") + c.series.slice(-3).join(" → ") + "%", (c.isAr ? "الألم NPRS: " : "Pain NPRS: ") + p.metrics.pain.join(" → "), (c.isAr ? "الالتزام: " : "Adherence: ") + p.metrics.hep + "%"],
+        groups: [{ key: "grpProgress", items: PROGRESSIONS[p.dxKey] || [] }],
+      };
+    } },
+  { id: "rts", sev: "blue", conf: "confMod",
+    test(p, c) {
+      if (p.dxKey !== "knee" && p.dxKey !== "shoulder") return null;
+      const expected = EXPECTED_RATE[p.dxKey] || 8;
+      if (c.delta < expected * 0.5 || (p.age && p.age > 50)) return null;
+      return {
+        title: c.isAr ? "قبل العودة للرياضة — اختبارات موضوعية" : "Before return to sport — objective testing",
+        why: c.isAr
+          ? "مع استمرار هذا المعدل من التحسن، يُنصح بإتمام اختبارات موضوعية قبل أي سماح بالعودة للنشاط الرياضي بدلاً من الاعتماد على الزمن وحده."
+          : "At this rate of improvement, complete objective testing before any return-to-sport clearance rather than relying on time alone.",
+        findings: [(c.isAr ? "العمر: " : "Age: ") + p.age, (c.isAr ? "المنطقة: " : "Region: ") + p.dxKey],
+        groups: [{ key: "grpRts", items: RTS_TESTS }],
+      };
+    } },
+  { id: "discharge", sev: "blue", conf: "confMod",
+    test(p, c) {
+      const last = c.series[c.series.length - 1] || 0;
+      if (p.done / p.total < 0.85 || last < 85) return null;
+      return {
+        title: c.isAr ? "قد يكون مناسباً للخروج من البرنامج" : "May be appropriate for discharge",
+        why: c.isAr
+          ? "اكتملت " + p.done + " من " + p.total + " جلسة والمدى الحركي عند " + last + "%. إن تحققت الأهداف الوظيفية، جهّز خطة الخروج أدناه."
+          : p.done + " of " + p.total + " sessions are complete and ROM sits at " + last + "%. If functional goals are met, prepare the discharge plan below.",
+        findings: [(c.isAr ? "الجلسات: " : "Sessions: ") + p.done + "/" + p.total, "ROM " + last + "%"],
+        groups: [{ key: "grpDischarge", items: DISCHARGE_ITEMS }],
+      };
+    } },
+];
+
+function cdssForPatient(p, lang) {
+  if (!p.metrics) return [];
+  const isAr = lang === "ar";
+  const series = romSeries(p);
+  const pain = p.metrics.pain || [];
+  const ctx = {
+    isAr, series,
+    delta: trendDelta(series, 3),
+    painDelta: pain.length > 1 ? pain[pain.length - 1] - pain[0] : 0,
+  };
+  let out = [];
+  CDSS_RULES.forEach(rule => {
+    const hit = rule.test(p, ctx);
+    if (hit) out.push(Object.assign({ ruleId: rule.id, sev: rule.sev, confKey: rule.conf, patientId: p.id, patientName: p.name }, hit));
+  });
+  // Plateau and slow-progress overlap: plateau is the stronger statement.
+  if (out.some(i => i.ruleId === "plateau")) out = out.filter(i => i.ruleId !== "slow_progress");
+  // Safety: never suggest advancing while a red flag or regression is unresolved.
+  if (out.some(i => i.ruleId === "red_flag" || i.ruleId === "regression"))
+    out = out.filter(i => !["progression", "rts", "discharge"].includes(i.ruleId));
+  return out.sort((a, b) => SEV_ORDER.indexOf(a.sev) - SEV_ORDER.indexOf(b.sev)).slice(0, 3);
+}
+
+const TEAM = [
+  { en: "Dr. Salma Al-Rashed", ar: "د. سلمى الراشد", roleEn: "Physiotherapist · Consultant", roleAr: "أخصائية علاج طبيعي · استشاري" },
+  { en: "Dr. Khalid Al-Harbi", ar: "د. خالد الحربي", roleEn: "Physiotherapist", roleAr: "أخصائي علاج طبيعي" },
+  { en: "Reem Al-Salem", ar: "أ. ريم السالم", roleEn: "Appointments Coordinator", roleAr: "منسقة المواعيد" },
+];
+
+function seedPatients() {
+  return [
+    { id: 1, name: "سارة المطيري", age: 63, gender: "female", diag: "CVA Left Hemiplegia", dxKey: "brain", done: 14, total: 20, apptDay: "Tue", apptDayAr: "الثلاثاء", apptTime: "9:00 AM", apptTimeAr: "9:00 ص", recovery: 72, invoice: "paid", history: [],
+      metrics: { romSeries: [48, 55, 61, 68], pain: [4, 3, 3, 2], hep: 85, missed: 0, flags: [] } },
+    { id: 2, name: "محمد العتيبي", age: 58, gender: "male", diag: "Total Knee Arthroplasty", dxKey: "knee", done: 8, total: 24, apptDay: "Wed", apptDayAr: "الأربعاء", apptTime: "11:00 AM", apptTimeAr: "11:00 ص", recovery: 61, invoice: "pending", history: [],
+      metrics: { romSeries: [42, 45, 46, 47], pain: [6, 6, 5, 6], hep: 70, missed: 1, flags: [] } },
+    { id: 3, name: "نورة الشمري", age: 67, gender: "female", diag: "Parkinson's Disease Stage II", dxKey: "brain", done: 18, total: 30, apptDay: "Thu", apptDayAr: "الخميس", apptTime: "9:00 AM", apptTimeAr: "9:00 ص", recovery: 80, invoice: "pending", history: [],
+      metrics: { romSeries: [68, 73, 74, 74], pain: [3, 3, 3, 3], hep: 90, missed: 0, flags: [] } },
+    { id: 4, name: "فهد القحطاني", age: 41, gender: "male", diag: "Chronic Low Back Pain", dxKey: "lower_back", done: 3, total: 12, apptDay: "Tue", apptDayAr: "الثلاثاء", apptTime: "12:30 PM", apptTimeAr: "12:30 م", recovery: 88, invoice: "paid", history: [],
+      metrics: { romSeries: [52, 55, 58], pain: [7, 6, 7], hep: 40, missed: 2, flags: ["night_pain", "weight_loss"] } },
+    { id: 5, name: "عبدالله الدوسري", age: 35, gender: "male", diag: "Rotator Cuff Repair", dxKey: "shoulder", done: 6, total: 16, apptDay: "Mon", apptDayAr: "الاثنين", apptTime: "10:00 AM", apptTimeAr: "10:00 ص", recovery: 84, invoice: "pending", history: [],
+      metrics: { romSeries: [50, 62, 74, 84], pain: [5, 4, 3, 2], hep: 95, missed: 0, flags: [] } },
+  ];
+}
+
+const ICONS = {
+  dashboard: '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>',
+  patients: '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0M16 5.5a3 3 0 0 1 0 5.2M21 20a5 5 0 0 0-4-4.9"/></svg>',
+  appointments: '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>',
+  invoices: '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5h9l4 4V21a.5.5 0 0 1-.7.5l-2-1-2 1-2-1-2 1-2-1-2 1a.5.5 0 0 1-.8-.5V4a1.5 1.5 0 0 1 1.5-1.5z"/><path d="M9 9h6M9 13h6"/></svg>',
+  team: '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>',
+  anatomy: '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2.2"/><path d="M12 6.7V15M12 9L7 11M12 9l5 2M12 15l-3 6M12 15l3 6"/></svg>',
+  devices: '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5L17.5 17.5M6.5 17.5L17.5 6.5M12 2v20M12 2l4 3.5L12 9M12 22l4-3.5L12 15"/></svg>',
+  search: '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>',
+  assess: '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
+  angle: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20L12 4M4 20h16M9.5 20a9 9 0 0 0-1.2-4.5"/></svg>',
+  wave: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3l2.5-6 4 12 2.5-6h3M20 12h2"/></svg>',
+};
+
+function initials(name) {
+  const p = name.trim().split(/\s+/);
+  return ((p[0] ? p[0][0] : "") + (p[1] ? p[1][0] : "")).slice(0, 2);
+}
+function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
+
+/* ──────────────────────────────────────────────────────────────── */
+
+class Component extends DCLogic {
+  state = {
+    lang: (this.props && this.props.defaultLanguage) || "ar",
+    view: "dashboard",
+    viewLoading: true,
+    patients: seedPatients(),
+    uid: 6,
+    searchQ: "",
+    modal: null, // { type: 'profile'|'add'|'pick'|'assess'|'report', closing: false }
+    profileId: null,
+    form: { name: "", age: "", gender: "male", diag: "", dxKey: "lower_back", total: "12" },
+    assess: null,
+    reportRec: null,
+    kpiT: 0,
+    ringT: 0,
+    jarvisMounted: false,
+    jarvisClosing: false,
+    jarvisUnread: true,
+    jarvisMsgs: [],
+    jarvisBusy: false,
+    jarvisInput: "",
+    voiceOn: false,
+    expandedInsight: null,
+    insightStatus: {},   // "pid:ruleId" -> { status: 'accepted'|'done'|'dismissed', note }
+    hiddenRules: {},     // ruleId -> true ("hide similar")
+    osPhase: "core",     // core | hud | chat | out | done
+    hudStep: 0,
+    bootCaption: "",
+    bootCaptionOn: false,
+    bootVoiceOn: true,
+    speakingNow: false,
+    listening: false,
+    waveHeights: [0.16, 0.16, 0.16, 0.16, 0.16, 0.16, 0.16, 0.16, 0.16, 0.16, 0.16, 0.16],
+  };
+
+  msgsRef = React.createRef();
+
+  componentDidMount() {
+    this._timers = [];
+    this._settle(650);
+    this._t(() => this._seedJarvisGreeting(), 1000);
+    this._srOk = typeof window !== "undefined" && !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+    if (typeof speechSynthesis !== "undefined") { try { speechSynthesis.getVoices(); } catch (e) {} }
+    if (this._bootEnabled()) this._runOS();
+    else this.setState({ osPhase: "done" });
+  }
+
+  /* ── JARVIS boot sequence ───────────────────────────────────── */
+
+  _bootEnabled() {
+    return (!this.props || this.props.showIntro !== false) && !(this.props && this.props.reducedMotion);
+  }
+  _greeting() {
+    const isAr = this.state.lang === "ar";
+    const morning = new Date().getHours() < 12;
+    return isAr
+      ? "السلام عليكم دكتورة، " + (morning ? "صباح الخير" : "مساء الخير") + ". جاهز نبدأ يومنا — عندك اليوم خمس جلسات، وأول مريض بعد خمس عشرة دقيقة تقريباً."
+      : "Peace be upon you, Doctor. " + (morning ? "Good morning" : "Good evening") + ". Ready to start the day — you have five sessions today, first patient in about fifteen minutes.";
+  }
+  _closingLine() {
+    return this.state.lang === "ar"
+      ? "إذا تحبين أراجع أول حالة قبل ما تدخل، أنا جاهز."
+      : "If you'd like, I can review the first case before they come in.";
+  }
+  _runOS() {
+    this._t(() => {
+      if (this.state.osPhase !== "core") return;
+      const g = this._greeting();
+      this.setState({ bootCaption: g, bootCaptionOn: true });
+      this._speakSeq(g, () => this._toHud());
+    }, 2600);
+  }
+  _speakSeq(text, cb) {
+    let fired = false;
+    const fire = () => { if (!fired) { fired = true; cb(); } };
+    if (this.state.bootVoiceOn) this._speakRaw(text, fire);
+    this._t(fire, Math.max(5600, text.length * 100));
+  }
+  _toHud() {
+    if (this.state.osPhase !== "core") return;
+    this.setState({ osPhase: "hud", bootCaptionOn: false });
+    [1, 2, 3, 4, 5].forEach(i => this._t(() => {
+      if (this.state.osPhase === "hud") this.setState({ hudStep: i });
+    }, 350 + (i - 1) * 620));
+    this._t(() => this._toChat(), 350 + 4 * 620 + 1100);
+  }
+  _toChat() {
+    if (this.state.osPhase !== "hud") return;
+    const line = this._closingLine();
+    this.setState(s => ({ osPhase: "chat", jarvisMsgs: s.jarvisMsgs.concat([{ role: "assistant", text: line }]) }));
+    if (this.state.bootVoiceOn) this._speakRaw(line);
+  }
+  _minimizeOS() {
+    if (this.state.osPhase === "out" || this.state.osPhase === "done") return;
+    try { speechSynthesis.cancel(); } catch (e) {}
+    this._stopListening();
+    this._setSpeaking(false);
+    this.setState({ osPhase: "out", bootCaptionOn: false });
+    this._t(() => this.setState({ osPhase: "done", jarvisMounted: true, jarvisClosing: false, jarvisUnread: false }), 850);
+  }
+  launchOS() {
+    try { speechSynthesis.cancel(); } catch (e) {}
+    this.setState({ osPhase: "chat", hudStep: 5, jarvisMounted: false, jarvisClosing: false, jarvisUnread: false, bootCaptionOn: false });
+  }
+  toggleBootVoice() {
+    const on = !this.state.bootVoiceOn;
+    if (!on) { try { speechSynthesis.cancel(); } catch (e) {} this._setSpeaking(false); }
+    this.setState({ bootVoiceOn: on });
+  }
+
+  /* ── voice activity: waveform + speech recognition ──────────── */
+
+  _setSpeaking(on) {
+    this.setState({ speakingNow: on }, () => this._syncWave());
+  }
+  _syncWave() {
+    const active = this.state.speakingNow || this.state.listening;
+    if (active && !this._waveInt) {
+      this._waveInt = setInterval(() => {
+        this.setState({ waveHeights: this.state.waveHeights.map(() => 0.18 + Math.random() * 0.82) });
+      }, 90);
+    } else if (!active && this._waveInt) {
+      clearInterval(this._waveInt);
+      this._waveInt = null;
+      this.setState({ waveHeights: this.state.waveHeights.map(() => 0.16) });
+    }
+  }
+  toggleListening() {
+    if (this.state.listening) { this._stopListening(); return; }
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return;
+    try { speechSynthesis.cancel(); } catch (e) {}
+    this._setSpeaking(false);
+    try {
+      const r = new SR();
+      r.lang = this.state.lang === "ar" ? "ar-SA" : "en-US";
+      r.interimResults = false;
+      r.maxAlternatives = 1;
+      r.onresult = e => {
+        const txt = e.results[0] && e.results[0][0] ? e.results[0][0].transcript : "";
+        if (txt) this.sendJarvis(txt);
+      };
+      r.onend = () => this.setState({ listening: false }, () => this._syncWave());
+      r.onerror = () => this.setState({ listening: false }, () => this._syncWave());
+      this._rec = r;
+      r.start();
+      this.setState({ listening: true }, () => this._syncWave());
+    } catch (e) {}
+  }
+  _stopListening() {
+    try { if (this._rec) this._rec.stop(); } catch (e) {}
+  }
+
+  componentDidUpdate() {
+    const el = this.msgsRef.current;
+    if (el) {
+      const stamp = this.state.jarvisMsgs.length + (this.state.jarvisBusy ? 1 : 0);
+      if (stamp !== this._msgStamp) { this._msgStamp = stamp; el.scrollTop = el.scrollHeight; }
+    }
+  }
+  componentWillUnmount() {
+    (this._timers || []).forEach(clearTimeout);
+    cancelAnimationFrame(this._raf);
+    cancelAnimationFrame(this._raf2);
+    if (this._waveInt) clearInterval(this._waveInt);
+    this._stopListening();
+    try { speechSynthesis.cancel(); } catch (e) {}
+  }
+  _t(fn, ms) { const id = setTimeout(fn, ms); (this._timers = this._timers || []).push(id); return id; }
+  _settle(ms) {
+    this._t(() => {
+      this.setState({ viewLoading: false });
+      if (this.state.view === "dashboard") this._animKpis();
+    }, ms);
+  }
+  _animKpis() {
+    cancelAnimationFrame(this._raf);
+    const t0 = performance.now(), dur = 950;
+    const loop = now => {
+      const t = Math.min((now - t0) / dur, 1);
+      this.setState({ kpiT: easeOutCubic(t) });
+      if (t < 1) this._raf = requestAnimationFrame(loop);
+    };
+    this._raf = requestAnimationFrame(loop);
+  }
+  _animRing() {
+    cancelAnimationFrame(this._raf2);
+    const t0 = performance.now(), dur = 1100;
+    const loop = now => {
+      const t = Math.min((now - t0) / dur, 1);
+      this.setState({ ringT: easeOutCubic(t) });
+      if (t < 1) this._raf2 = requestAnimationFrame(loop);
+    };
+    this._raf2 = requestAnimationFrame(loop);
+  }
+
+  L() { return I18N[this.state.lang]; }
+
+  go(view) {
+    if (view === this.state.view && !this.state.viewLoading) return;
+    this.setState({ view, viewLoading: true, kpiT: 0 });
+    this._settle(430);
+  }
+  toggleLang() { this.setState(s => ({ lang: s.lang === "ar" ? "en" : "ar" })); }
+  stop(e) { if (e && e.stopPropagation) e.stopPropagation(); }
+
+  openModal(type, extra) { this.setState(Object.assign({ modal: { type, closing: false } }, extra || {})); }
+  swapModal(type, extra) { this.setState(Object.assign({ modal: { type, closing: false } }, extra || {})); }
+  closeModal() {
+    if (!this.state.modal || this.state.modal.closing) return;
+    this.setState(s => ({ modal: Object.assign({}, s.modal, { closing: true }) }));
+    this._t(() => this.setState({ modal: null, assess: null, reportRec: null }), 260);
+  }
+
+  openProfile(id) { this.openModal("profile", { profileId: id }); }
+  openAddPatient() {
+    this.openModal("add", { form: { name: "", age: "", gender: "male", diag: "", dxKey: "lower_back", total: "12" } });
+  }
+  setFormField(key, val) { this.setState(s => ({ form: Object.assign({}, s.form, { [key]: val }) })); }
+  savePatient() {
+    const f = this.state.form;
+    if (!f.name || !f.name.trim()) return;
+    const total = parseInt(f.total, 10) || 12;
+    const p = {
+      id: this.state.uid, name: f.name.trim(), age: f.age, gender: f.gender || "male",
+      diag: f.diag.trim() || "General Assessment", dxKey: f.dxKey, done: 0, total,
+      apptDay: "—", apptDayAr: "—", apptTime: "—", apptTimeAr: "—", recovery: 0, invoice: "pending", history: [],
+      metrics: { romSeries: [], pain: [], hep: 100, missed: 0, flags: [] },
+    };
+    this.setState(s => ({ patients: [p].concat(s.patients), uid: s.uid + 1 }));
+    this.closeModal();
+  }
+
+  startAssessment() { this.swapModal("pick"); }
+  pickDx(key) {
+    const data = CLINICAL_DATA[key];
+    const rom = {}, mmt = {};
+    data.joints.forEach((j, ji) => j.motions.forEach((m, mi) => { rom[ji + "-" + mi] = 0; }));
+    data.muscles.forEach((m, i) => { mmt[i] = 5; });
+    this.swapModal("assess", { assess: { dxKey: key, rom, mmt } });
+  }
+  setRom(id, val) { this.setState(s => ({ assess: Object.assign({}, s.assess, { rom: Object.assign({}, s.assess.rom, { [id]: +val }) }) })); }
+  setMmt(i, val) { this.setState(s => ({ assess: Object.assign({}, s.assess, { mmt: Object.assign({}, s.assess.mmt, { [i]: val }) }) })); }
+
+  finishAssessment() {
+    const { assess, patients, profileId, lang } = this.state;
+    const data = CLINICAL_DATA[assess.dxKey];
+    let sum = 0, n = 0;
+    data.joints.forEach((j, ji) => j.motions.forEach((m, mi) => {
+      const val = assess.rom[ji + "-" + mi] || 0;
+      sum += m.normal > 0 ? Math.min(val / m.normal * 100, 100) : 100;
+      n++;
+    }));
+    const romPct = Math.round(sum / n);
+    const mv = Object.values(assess.mmt);
+    const mmtAvg = (mv.reduce((a, b) => a + b, 0) / mv.length).toFixed(1);
+    const rec = {
+      dxKey: assess.dxKey,
+      date: new Date().toLocaleDateString(lang === "ar" ? "ar-EG" : "en-GB", { day: "numeric", month: "short", year: "numeric" }),
+      romPct, mmtAvg, rom: Object.assign({}, assess.rom), mmt: Object.assign({}, assess.mmt),
+    };
+    const newPatients = patients.map(p => p.id !== profileId ? p :
+      Object.assign({}, p, { history: [rec].concat(p.history), done: Math.min(p.total, p.done + 1) }));
+    this.setState({ patients: newPatients, reportRec: rec, ringT: 0 });
+    this.swapModal("report");
+    this._animRing();
+  }
+  viewReport(rec) { this.setState({ reportRec: rec, ringT: 0 }); this.swapModal("report"); this._animRing(); }
+
+  /* ── CDSS insight state ─────────────────────────────────────── */
+
+  _insightState(key) { return this.state.insightStatus[key] || {}; }
+  setInsightStatus(key, status) {
+    this.setState(s => ({ insightStatus: Object.assign({}, s.insightStatus, { [key]: Object.assign({}, s.insightStatus[key], { status }) }) }));
+  }
+  setInsightNote(key, note) {
+    this.setState(s => ({ insightStatus: Object.assign({}, s.insightStatus, { [key]: Object.assign({}, s.insightStatus[key], { note }) }) }));
+  }
+  hideRule(ruleId) { this.setState(s => ({ hiddenRules: Object.assign({}, s.hiddenRules, { [ruleId]: true }) })); }
+  toggleInsight(key) { this.setState(s => ({ expandedInsight: s.expandedInsight === key ? null : key })); }
+  _activeInsights(patient) {
+    const list = patient ? [patient] : this.state.patients;
+    const out = [];
+    list.forEach(p => cdssForPatient(p, this.state.lang).forEach(ins => {
+      const key = p.id + ":" + ins.ruleId;
+      const st = this._insightState(key);
+      if (st.status === "dismissed" || this.state.hiddenRules[ins.ruleId]) return;
+      out.push(Object.assign({ key, status: st.status || null, note: st.note || "" }, ins));
+    }));
+    return out.sort((a, b) => SEV_ORDER.indexOf(a.sev) - SEV_ORDER.indexOf(b.sev));
+  }
+
+  /* ── Jarvis — AI clinical assistant ─────────────────────────── */
+
+  _firstAppt() {
+    const parse = p => { const m = /(\d+):(\d+)\s*(AM|PM)/.exec(p.apptTime); if (!m) return 99; let h = +m[1] % 12; if (m[3] === "PM") h += 12; return h + (+m[2]) / 60; };
+    return this.state.patients.slice().sort((a, b) => parse(a) - parse(b))[0];
+  }
+  _seedJarvisGreeting() {
+    if (this.state.jarvisMsgs.length) return;
+    const isAr = this.state.lang === "ar";
+    const first = this._firstAppt();
+    const behind = this.state.patients.slice().sort((a, b) => a.done - b.done)[0];
+    const morning = new Date().getHours() < 12;
+    const flagged = this.state.patients.find(p => p.metrics && p.metrics.flags && p.metrics.flags.length);
+    const text = (isAr
+      ? (morning ? "صباح الخير" : "مساء الخير") + " دكتورة سلمى، عندك اليوم 5 جلسات. أول مريض " + first.name + " الساعة " + first.apptTimeAr + "، وفيه مريض يحتاج إعادة تقييم اليوم: " + behind.name + "."
+      : (morning ? "Good morning" : "Good evening") + " Dr. Salma — you have 5 sessions today. First patient is " + first.name + " at " + first.apptTime + ", and one patient needs reassessment today: " + behind.name + ".")
+      + (flagged ? (isAr ? " وانتبهي: فيه راية حمراء محتملة على " + flagged.name + " — راجعي لوحة الرؤى السريرية." : " Also note: a potential red flag on " + flagged.name + " — see the Clinical Insights panel.") : "");
+    this.setState(s => ({ jarvisMsgs: s.jarvisMsgs.concat([{ role: "assistant", text }]), jarvisUnread: !s.jarvisMounted }));
+  }
+  toggleJarvis() {
+    if (this.state.jarvisMounted && !this.state.jarvisClosing) {
+      this.setState({ jarvisClosing: true });
+      this._t(() => this.setState({ jarvisMounted: false, jarvisClosing: false }), 240);
+    } else if (!this.state.jarvisMounted) {
+      this.setState({ jarvisMounted: true, jarvisClosing: false, jarvisUnread: false });
+    }
+  }
+  toggleVoice() {
+    const on = !this.state.voiceOn;
+    if (!on && typeof speechSynthesis !== "undefined") { try { speechSynthesis.cancel(); } catch (e) {} }
+    this.setState({ voiceOn: on });
+  }
+  _speak(text) {
+    if (!this.state.voiceOn) return;
+    this._speakRaw(text);
+  }
+  _speakRaw(text, onDone) {
+    if (typeof speechSynthesis === "undefined") { if (onDone) onDone(); return; }
+    try {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      const want = this.state.lang === "ar" ? "ar" : "en";
+      const voices = speechSynthesis.getVoices() || [];
+      const v = voices.find(x => x.lang && x.lang.toLowerCase().replace("_", "-") === (want === "ar" ? "ar-sa" : "en-us"))
+        || voices.find(x => x.lang && x.lang.toLowerCase().startsWith(want));
+      if (v) u.voice = v;
+      u.lang = v ? v.lang : (want === "ar" ? "ar-SA" : "en-US");
+      u.rate = 1;
+      u.pitch = 1;
+      u.onstart = () => this._setSpeaking(true);
+      u.onend = () => { this._setSpeaking(false); if (onDone) onDone(); };
+      u.onerror = () => { this._setSpeaking(false); if (onDone) onDone(); };
+      speechSynthesis.speak(u);
+    } catch (e) { this._setSpeaking(false); if (onDone) onDone(); }
+  }
+  _jarvisSystem() {
+    const isAr = this.state.lang === "ar";
+    const open = this.state.modal && this.state.modal.type && this.state.profileId != null && ["profile", "pick", "assess", "report"].includes(this.state.modal.type)
+      ? this.state.patients.find(p => p.id === this.state.profileId) : null;
+    const data = {
+      today_sessions: 5,
+      patients: this.state.patients.map(p => ({
+        name: p.name, age: p.age, gender: p.gender, diagnosis: p.diag, region: p.dxKey,
+        sessions_done: p.done, sessions_total: p.total, recovery_pct: p.recovery,
+        invoice: p.invoice, appointment: p.apptDay + " " + p.apptTime,
+        assessments: p.history.slice(0, 2).map(h => ({ date: h.date, rom_pct: h.romPct, mmt_avg: h.mmtAvg, region: h.dxKey })),
+      })),
+      team: TEAM.map(m => ({ name: m.en, role: m.roleEn })),
+      pending_invoices: this.state.patients.filter(p => p.invoice === "pending").map(p => p.name),
+      cdss_active_insights: this._activeInsights().map(i => ({ patient: i.patientName, severity: i.sev, insight: i.title, status: i.status || "open" })),
+    };
+    return "You are Jarvis (جارفس), the permanent AI clinical assistant inside PhysioTrack, a physiotherapy clinic app. You work alongside Dr. Salma Al-Rashed (د. سلمى الراشد), consultant physiotherapist in Saudi Arabia.\n"
+      + "Personality: professional, intelligent, calm, respectful, confident, concise — an experienced senior clinical assistant. Never robotic, never overly casual.\n"
+      + (isAr
+        ? "Respond in Arabic: Modern Standard Arabic with a natural, professional Saudi conversational flavor (like: \"عندك اليوم 5 جلسات\", \"فيه مريض يحتاج إعادة تقييم\"). Clinical test names and diagnoses may stay in English.\n"
+        : "Respond in English.\n")
+      + "Keep replies to 1–3 short sentences unless asked for detail. Use ONLY the clinic data below — never ask for information already in it. Proactively reference previous sessions, progress, reassessments and the CDSS insights. When relevant, suggest evidence-based next steps, objective outcome measures, and flag risks. Never make a definitive diagnosis; recommendations are suggestions that require the therapist's confirmation. If asked something outside the data, say so briefly.\n"
+      + "Ground clinical suggestions in evidence-based physiotherapy practice (APTA, NICE, JOSPT guidelines, pain science, biomechanics); name the relevant test or outcome measure and give a confidence level (high/moderate/low) when making a clinical suggestion. Never fabricate data.\n"
+      + "CLINIC DATA (JSON): " + JSON.stringify(data) + "\n"
+      + (open ? "The therapist currently has this patient's profile open: " + open.name + ". Prioritize their context.\n" : "")
+      + (this.state.jarvisMsgs.length && this.state.jarvisMsgs[0].role === "assistant" ? "You already greeted the therapist with: \"" + this.state.jarvisMsgs[0].text + "\"" : "");
+  }
+  sendJarvis(preset) {
+    const text = (typeof preset === "string" ? preset : this.state.jarvisInput).trim();
+    if (!text || this.state.jarvisBusy) return;
+    this.setState(s => ({ jarvisMsgs: s.jarvisMsgs.concat([{ role: "user", text }]), jarvisInput: "", jarvisBusy: true }));
+    this._t(() => this._askJarvis(), 30);
+  }
+  async _askJarvis() {
+    const t = this.L();
+    let reply;
+    try {
+      if (!window.claude || !window.claude.complete) throw new Error("unavailable");
+      const msgs = this.state.jarvisMsgs;
+      let start = msgs.findIndex(m => m.role === "user");
+      if (start < 0) start = msgs.length;
+      const messages = msgs.slice(start).map(m => ({ role: m.role, content: m.text }));
+      reply = await window.claude.complete({ system: this._jarvisSystem(), messages, max_tokens: 400 });
+      if (!reply || !String(reply).trim()) throw new Error("empty");
+      reply = String(reply).trim();
+    } catch (e) {
+      reply = t.jarvisOffline;
+    }
+    this.setState(s => ({ jarvisMsgs: s.jarvisMsgs.concat([{ role: "assistant", text: reply }]), jarvisBusy: false }));
+    if (this.state.osPhase !== "done" ? this.state.bootVoiceOn : this.state.voiceOn) this._speakRaw(reply);
+  }
+
+  renderVals() {
+    const t = this.L();
+    const { lang, view, patients, modal, viewLoading } = this.state;
+    const dir = lang === "ar" ? "rtl" : "ltr";
+    const isAr = lang === "ar";
+
+    const navDef = NAV_REGISTRY.find(n => n.key === view) || NAV_REGISTRY[0];
+    const navIndex = NAV_REGISTRY.indexOf(navDef);
+
+    const navItems = NAV_REGISTRY.map(n => ({
+      key: n.key, label: t[n.labelKey], soon: !!n.soon,
+      color: view === n.key ? "var(--color-accent)" : "color-mix(in srgb, var(--color-text) 78%, transparent)",
+      iconHtml: { __html: ICONS[n.icon] },
+      go: () => this.go(n.key),
+    }));
+
+    const recovery = Math.round(patients.reduce((a, p) => a + p.recovery, 0) / patients.length) || 0;
+    const pendingCount = patients.filter(p => p.invoice === "pending").length;
+    const kt = this.state.kpiT;
+    const kpis = [
+      { label: t.kpiTotalPatients, value: Math.round(patients.length * kt), meta: t.kpiMeta1, iconHtml: { __html: ICONS.patients }, delay: "0ms" },
+      { label: t.kpiSessionsToday, value: Math.round(5 * kt), meta: t.kpiMeta2, iconHtml: { __html: ICONS.appointments }, delay: "60ms" },
+      { label: t.kpiRecoveryRate, value: Math.round(recovery * kt) + "%", meta: t.kpiMeta3, iconHtml: { __html: ICONS.dashboard }, delay: "120ms" },
+      { label: t.kpiPendingInvoices, value: Math.round(pendingCount * kt), meta: t.kpiMeta4, iconHtml: { __html: ICONS.invoices }, delay: "180ms" },
+    ];
+
+    const insightVM = (ins, i) => {
+      const meta = SEV_META[ins.sev];
+      const expanded = this.state.expandedInsight === ins.key;
+      return {
+        key: ins.key, title: ins.title, why: ins.why,
+        patientName: ins.patientName,
+        sevLabel: t[meta.labelKey],
+        color: meta.color,
+        tint: "color-mix(in srgb, " + meta.color + " 13%, transparent)",
+        findings: ins.findings || [],
+        groups: (ins.groups || []).map(g => ({ label: t[g.key], items: g.items })),
+        confLabel: t[ins.confKey],
+        statusLabel: ins.status === "accepted" ? t.stAccepted : ins.status === "done" ? t.stDone : "",
+        dim: ins.status === "done" ? 0.55 : 1,
+        rows: expanded ? "1fr" : "0fr",
+        chev: expanded ? "rotate(180deg)" : "none",
+        delay: Math.min(i * 60, 300) + "ms",
+        toggle: () => this.toggleInsight(ins.key),
+        accept: () => this.setInsightStatus(ins.key, "accepted"),
+        done: () => this.setInsightStatus(ins.key, "done"),
+        dismiss: () => this.setInsightStatus(ins.key, "dismissed"),
+        hide: () => this.hideRule(ins.ruleId),
+        note: ins.note,
+        setNote: e => this.setInsightNote(ins.key, e.target.value),
+        stop: e => this.stop(e),
+        open: () => this.openProfile(ins.patientId),
+      };
+    };
+    const allInsights = this._activeInsights();
+    const dashInsights = allInsights.slice(0, 5).map(insightVM);
+
+    const mkRow = (p, i) => ({
+      id: p.id, name: p.name, diag: p.diag, initials: initials(p.name),
+      pct: Math.round(p.done / p.total * 100),
+      sessionsLabel: p.done + "/" + p.total + " " + t.sessions,
+      apptDay: isAr ? p.apptDayAr : p.apptDay,
+      apptTime: isAr ? p.apptTimeAr : p.apptTime,
+      invoiceLabel: p.invoice === "pending" ? t.pending : t.paid,
+      invoiceTagClass: p.invoice === "pending" ? "tag-outline" : "tag-accent",
+      done: p.done,
+      delay: Math.min(i * 55, 440) + "ms",
+      open: () => this.openProfile(p.id),
+    });
+
+    const q = this.state.searchQ.trim().toLowerCase();
+    const filtered = q ? patients.filter(p => (p.name + " " + p.diag).toLowerCase().includes(q)) : patients;
+
+    const patientRows = patients.map(mkRow);
+    const patientCards = filtered.map(mkRow);
+    const apptRows = patients.map(mkRow);
+    const invRows = patients.map((p, i) => Object.assign(mkRow(p, i), { amount: (p.done * 180).toLocaleString("en-US") + " SAR" }));
+    const teamRows = TEAM.map((m, i) => ({ name: isAr ? m.ar : m.en, role: isAr ? m.roleAr : m.roleEn, delay: i * 60 + "ms" }));
+
+    const dxOptions = Object.keys(DX_META).map((key, i) => ({
+      key, label: DX_META[key][lang].label, desc: DX_META[key][lang].desc,
+      delay: i * 55 + "ms",
+      pick: () => this.pickDx(key),
+    }));
+
+    const anatomyFeatures = ANATOMY_MODULE.featureKeys.map((k, i) => ({ label: t[k], delay: 150 + i * 80 + "ms" }));
+
+    const pairedDevices = PAIRED_DEMO.map((d, i) => ({
+      name: d.name, meta: isAr ? d.metaAr : d.metaEn, iconHtml: { __html: ICONS[d.icon] }, delay: i * 70 + "ms",
+    }));
+    const deviceCategories = DEVICE_CATEGORIES.map((c, i) => ({
+      label: isAr ? c.ar : c.en, delay: 120 + i * 70 + "ms",
+      items: DEVICE_REGISTRY.filter(d => d.cat === c.id).map(d => ({
+        name: isAr ? d.ar : d.en, conn: d.conn,
+        statusLabel: d.status === "ready" ? t.statusReady : t.statusPlanned,
+        tagClass: d.status === "ready" ? "tag-accent" : "tag-neutral",
+      })),
+    }));
+
+    // Profile
+    let profile = null;
+    let profileInsights = [];
+    if (this.state.profileId != null) {
+      const p = patients.find(x => x.id === this.state.profileId);
+      if (p) {
+        profileInsights = this._activeInsights(p).map(insightVM);
+        profile = {
+          name: p.name, initials: initials(p.name), diag: p.diag,
+          ageGender: (p.age ? p.age + (isAr ? " سنة · " : " yrs · ") : "") + (p.gender === "female" ? t.female : t.male),
+          sessionsLabel: p.done + "/" + p.total + " " + t.sessions,
+          pct: Math.round(p.done / p.total * 100),
+          hasHistory: p.history.length > 0,
+          history: p.history.map(h => ({
+            label: DX_META[h.dxKey][lang].label, date: h.date, romPct: h.romPct, mmtAvg: h.mmtAvg,
+            view: () => this.viewReport(h),
+          })),
+        };
+      }
+    }
+
+    // Assessment
+    let assess = null;
+    if (this.state.assess) {
+      const a = this.state.assess;
+      const data = CLINICAL_DATA[a.dxKey];
+      let doneCount = 0, totalCount = 0;
+      const joints = data.joints.map((j, ji) => ({
+        name: j.name,
+        motions: j.motions.map((m, mi) => {
+          const id = ji + "-" + mi;
+          const val = a.rom[id] || 0;
+          totalCount++; if (val > 0) doneCount++;
+          const max = Math.max(Math.round(m.normal * 1.15), m.normal + 10, 5);
+          return {
+            id, name: m.name, normLabel: "Normal " + m.normal + "°", max, value: val, valueLabel: val + "°",
+            onChange: e => this.setRom(id, e.target.value),
+          };
+        }),
+      }));
+      const muscles = data.muscles.map((name, i) => ({
+        name, gradeLabel: a.mmt[i] + "/5",
+        grades: [0, 1, 2, 3, 4, 5].map(v => {
+          const sel = a.mmt[i] === v;
+          return {
+            value: v,
+            bg: sel ? "var(--color-accent)" : "transparent",
+            color: sel ? "var(--color-accent-900)" : "var(--color-text)",
+            borderColor: sel ? "var(--color-accent)" : "var(--color-divider)",
+            pick: () => this.setMmt(i, v),
+          };
+        }),
+      }));
+      assess = { title: DX_META[a.dxKey][lang].label, progressPct: totalCount ? Math.round(doneCount / totalCount * 100) : 0, joints, muscles };
+    }
+
+    // Report
+    let report = null;
+    if (this.state.reportRec) {
+      const rec = this.state.reportRec;
+      const data = CLINICAL_DATA[rec.dxKey];
+      const rt = this.state.ringT;
+      const joints = data.joints.map((j, ji) => ({
+        name: j.name, delay: ji * 70 + "ms",
+        motions: j.motions.map((m, mi) => {
+          const v = rec.rom[ji + "-" + mi] || 0;
+          const pct = m.normal > 0 ? Math.min(Math.round(v / m.normal * 100), 100) : 100;
+          return { name: m.name, valueLabel: v + "° / " + m.normal + "°", pct };
+        }),
+      }));
+      const muscles = data.muscles.map((name, i) => ({ name, gradeLabel: rec.mmt[i] + "/5" }));
+      const summary = rec.romPct >= 80 ? t.reportSummaryGood : rec.romPct >= 50 ? t.reportSummaryFair : t.reportSummaryLow;
+      report = {
+        romPct: rec.romPct,
+        ringPct: Math.round(rec.romPct * rt * 10) / 10,
+        ringValue: Math.round(rec.romPct * rt),
+        mmtAvg: rec.mmtAvg, date: rec.date, summary, joints, muscles,
+      };
+    }
+
+    const form = this.state.form;
+    const mType = modal ? modal.type : null;
+    const closing = modal ? modal.closing : false;
+    const widths = { profile: "600px", add: "460px", pick: "540px", assess: "660px", report: "640px" };
+
+    // JARVIS OS data
+    const parseT = x => { const m = /(\d+):(\d+)\s*(AM|PM)/.exec(x.apptTime); if (!m) return 99; let h = +m[1] % 12; if (m[3] === "PM") h += 12; return h + (+m[2]) / 60; };
+    const byTime = patients.slice().sort((a, b) => parseT(a) - parseT(b));
+    const osPhase = this.state.osPhase;
+    const flaggedP = patients.find(p => p.metrics && p.metrics.flags && p.metrics.flags.length);
+    const behindP = patients.slice().sort((a, b) => a.done - b.done)[0];
+
+    return {
+      dir, motion: (this.props && this.props.reducedMotion) ? "reduced" : "full",
+      t: Object.assign({}, t, { viewTitle: t[navDef.labelKey], viewSub: t[navDef.subKey] }),
+      navItems,
+      navIndicatorTop: navIndex * 46,
+      langThumbStart: isAr ? "0%" : "50%",
+      arColor: isAr ? "var(--color-accent)" : "color-mix(in srgb, var(--color-text) 45%, transparent)",
+      enColor: isAr ? "color-mix(in srgb, var(--color-text) 45%, transparent)" : "var(--color-accent)",
+      toggleLang: () => this.toggleLang(),
+      chevFlip: isAr ? "scaleX(-1)" : "none",
+      viewLoading, viewReady: !viewLoading,
+      skels4: [{}, {}, {}, {}],
+      skels5: [0, 1, 2, 3, 4].map(i => ({ delay: i * 90 + "ms" })),
+      isDashboard: view === "dashboard", isPatients: view === "patients",
+      isAppointments: view === "appointments", isInvoices: view === "invoices",
+      isTeam: view === "team", isAnatomy: view === "anatomy", isDevices: view === "devices",
+      kpis, patientRows, patientCards, apptRows, invRows, teamRows,
+      dashInsights, profileInsights,
+      hasDashInsights: dashInsights.length > 0,
+      hasProfileInsights: profileInsights.length > 0,
+      noResults: q.length > 0 && filtered.length === 0,
+      searchQ: this.state.searchQ,
+      setSearch: e => this.setState({ searchQ: e.target.value }),
+      searchIconHtml: { __html: ICONS.search },
+      assessIconHtml: { __html: ICONS.assess },
+      anatomyIconHtml: { __html: ICONS.anatomy },
+      goPatients: () => this.go("patients"),
+      goAnatomy: () => this.go("anatomy"),
+      goAnatomyFromProfile: () => { this.closeModal(); this._t(() => this.go("anatomy"), 240); },
+      anatomyFeatures, pairedDevices, deviceCategories,
+      openAddPatient: () => this.openAddPatient(),
+      dxOptions,
+      modalOpen: modal != null,
+      modalType: mType || "",
+      modalWidth: widths[mType] || "560px",
+      backdropAnim: closing ? "ptFadeOut" : "ptFadeIn",
+      panelAnim: closing ? "ptDialogOut" : "ptDialogIn",
+      closeModal: () => this.closeModal(),
+      stop: e => this.stop(e),
+      mProfile: mType === "profile", mAdd: mType === "add", mPick: mType === "pick",
+      mAssess: mType === "assess" && assess != null, mReport: mType === "report" && report != null,
+      profile: profile || { history: [] },
+      startAssessment: () => this.startAssessment(),
+      form: {
+        name: form.name, age: form.age, gender: form.gender, diag: form.diag, dxKey: form.dxKey, total: form.total,
+        setName: e => this.setFormField("name", e.target.value),
+        setAge: e => this.setFormField("age", e.target.value),
+        setGender: e => this.setFormField("gender", e.target.value),
+        setDiag: e => this.setFormField("diag", e.target.value),
+        setDxKey: e => this.setFormField("dxKey", e.target.value),
+        setTotal: e => this.setFormField("total", e.target.value),
+      },
+      savePatient: () => this.savePatient(),
+      assess: assess || { joints: [], muscles: [], title: "", progressPct: 0 },
+      finishAssessment: () => this.finishAssessment(),
+      report: report || { joints: [], muscles: [], ringPct: 0, ringValue: 0 },
+
+      // JARVIS OS
+      bootActive: osPhase !== "done",
+      bootPointer: osPhase === "out" ? "none" : "auto",
+      bootOutAnim: osPhase === "out" ? "ptBootOut .9s cubic-bezier(.4,0,.2,1) forwards" : "none",
+      circuitOpacity: osPhase === "core" ? 0.9 : 0.22,
+      coreShift: osPhase === "core" ? "0px" : "-36vh",
+      coreScale: osPhase === "core" ? 1 : 0.55,
+      logOpacity: osPhase === "core" ? 1 : 0,
+      logMaxH: osPhase === "core" ? "300px" : "0px",
+      logMarginTop: osPhase === "core" ? "26px" : "0px",
+      coreWaveOpacity: this.state.speakingNow && osPhase === "core" ? 1 : 0,
+      bootCaption: this.state.bootCaption,
+      bootCaptionOpacity: this.state.bootCaptionOn ? 1 : 0,
+      bootVoiceColor: this.state.bootVoiceOn ? "var(--color-accent)" : "color-mix(in srgb, var(--color-text) 45%, transparent)",
+      toggleBootVoice: () => this.toggleBootVoice(),
+      skipBoot: () => this._minimizeOS(),
+      osTopBtnLabel: osPhase === "core" ? t.bootSkip : t.osEnter,
+      bootStatus: ["AI Online", "Clinic Connected", "Patient Database Synced", "Oxford Knowledge Loaded", "Harvard Knowledge Loaded", "Appointments Loaded"].map((label, i) => ({ label, delay: (2.0 + i * 0.24).toFixed(2) + "s" })),
+      osHud: osPhase === "hud" || osPhase === "chat" || osPhase === "out",
+      h1: this.state.hudStep >= 1, h2: this.state.hudStep >= 2, h3: this.state.hudStep >= 3,
+      h4: this.state.hudStep >= 4, h5: this.state.hudStep >= 5,
+      hudAppts: byTime.map(p => ({ time: isAr ? p.apptTimeAr : p.apptTime, name: p.name, diag: p.diag })),
+      hudQueue: byTime.slice(0, 3).map((p, i) => ({
+        initials: initials(p.name), name: p.name,
+        status: i === 0 ? t.queueNow : t.queueWaiting,
+        tagClass: i === 0 ? "tag-accent" : "tag-neutral",
+      })),
+      hudUpcoming: byTime.slice(2).map(p => ({ time: isAr ? p.apptTimeAr : p.apptTime, name: p.name, day: isAr ? p.apptDayAr : p.apptDay })),
+      hudInsights: allInsights.slice(0, 4).map(i => ({ patient: i.patientName, title: i.title, color: SEV_META[i.sev].color })),
+      hudNotifs: [
+        flaggedP ? { color: SEV_META.red.color, text: isAr ? "راية حمراء محتملة لدى " + flaggedP.name + " — تُنصح مراجعة طبية عاجلة" : "Potential red flag for " + flaggedP.name + " — urgent medical review advised" } : null,
+        { color: SEV_META.yellow.color, text: isAr ? behindP.name + " يحتاج إعادة تقييم اليوم" : behindP.name + " needs reassessment today" },
+        { color: "var(--color-accent)", text: isAr ? pendingCount + " فواتير بانتظار السداد" : pendingCount + " invoices awaiting payment" },
+      ].filter(Boolean),
+      osChat: osPhase === "chat",
+      osMsgs: this.state.jarvisMsgs.slice(-5).map(m => ({
+        text: m.text,
+        align: m.role === "user" ? "flex-end" : "flex-start",
+        bg: m.role === "user" ? "color-mix(in srgb, var(--color-accent) 13%, transparent)" : "color-mix(in srgb, var(--color-surface) 62%, transparent)",
+        border: m.role === "user" ? "color-mix(in srgb, var(--color-accent) 35%, transparent)" : "var(--color-divider)",
+      })),
+      osStatusLabel: this.state.listening ? t.osListening : this.state.speakingNow ? t.osSpeaking : t.osOnline,
+      waveBars: this.state.waveHeights.map(h => ({ h })),
+      waveBarsMini: this.state.waveHeights.slice(0, 7).map(h => ({ h })),
+      micVisible: !!this._srOk,
+      micColor: this.state.listening ? "var(--color-accent)" : "color-mix(in srgb, var(--color-text) 55%, transparent)",
+      micBorder: this.state.listening ? "var(--color-accent)" : "var(--color-divider)",
+      bootParticles: [
+        { left: "12%", top: "72%", size: "3px", dur: "8s", delay: "0s" },
+        { left: "22%", top: "85%", size: "2px", dur: "10s", delay: "1.2s" },
+        { left: "34%", top: "78%", size: "2.5px", dur: "9s", delay: "2.5s" },
+        { left: "48%", top: "88%", size: "2px", dur: "11s", delay: "0.6s" },
+        { left: "60%", top: "80%", size: "3px", dur: "8.5s", delay: "3.1s" },
+        { left: "72%", top: "86%", size: "2px", dur: "10.5s", delay: "1.8s" },
+        { left: "83%", top: "74%", size: "2.5px", dur: "9.5s", delay: "0.9s" },
+        { left: "91%", top: "82%", size: "2px", dur: "8.8s", delay: "2.2s" },
+      ],
+
+      // Jarvis
+      jarvisMounted: this.state.jarvisMounted,
+      jarvisAnim: this.state.jarvisClosing ? "ptDialogOut" : "ptDialogIn",
+      jarvisUnread: this.state.jarvisUnread && !this.state.jarvisMounted,
+      jarvisMsgs: this.state.jarvisMsgs.map(m => ({
+        text: m.text,
+        align: m.role === "user" ? "flex-end" : "flex-start",
+        bg: m.role === "user" ? "color-mix(in srgb, var(--color-accent) 13%, transparent)" : "color-mix(in srgb, var(--color-bg) 55%, transparent)",
+        border: m.role === "user" ? "color-mix(in srgb, var(--color-accent) 35%, transparent)" : "var(--color-divider)",
+      })),
+      jarvisBusy: this.state.jarvisBusy,
+      jarvisInput: this.state.jarvisInput,
+      jarvisChips: [
+        { label: t.chipSchedule, send: () => this.sendJarvis(t.chipSchedule) },
+        { label: t.chipReassess, send: () => this.sendJarvis(t.chipReassess) },
+        { label: t.chipInvoices, send: () => this.sendJarvis(t.chipInvoices) },
+      ].concat(this.state.profileId != null && modal ? [{ label: t.chipPatient, send: () => this.sendJarvis(t.chipPatient) }] : []),
+      sendFlip: isAr ? "scaleX(-1)" : "none",
+      jarvis: {
+        toggle: () => this.toggleJarvis(),
+        toggleVoice: () => this.toggleVoice(),
+        voiceBorder: this.state.voiceOn ? "var(--color-accent)" : "var(--color-divider)",
+        voiceColor: this.state.voiceOn ? "var(--color-accent)" : "color-mix(in srgb, var(--color-text) 55%, transparent)",
+        msgsRef: this.msgsRef,
+        onInput: e => this.setState({ jarvisInput: e.target.value }),
+        onKey: e => { if (e.key === "Enter") this.sendJarvis(); },
+        send: () => this.sendJarvis(),
+        expand: () => this.launchOS(),
+        mic: () => this.toggleListening(),
+      },
+    };
+  }
+}
+
+</script>
+</body>
+</html>

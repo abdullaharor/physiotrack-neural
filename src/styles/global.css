@@ -1,0 +1,63 @@
+/* ────────────────────────────────────────────────────────────────
+   global.css — base + animation library
+   Ported VERBATIM from the PhysioTrack v3 Claude Design export
+   (the inline <style> block inside PhysioTrack v3.dc.html). These are
+   the app-level resets, scrollbar styling, range-input styling and the
+   full @keyframes library that the UI's animations depend on.
+   The Nocturne design tokens/components live in nocturne.css.
+   ──────────────────────────────────────────────────────────────── */
+
+body { margin: 0; overflow: hidden; }
+#root { height: 100vh; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--color-neutral-800); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-neutral-700); }
+::-webkit-scrollbar-track { background: transparent; }
+
+a { color: var(--color-accent); }
+a:hover { color: var(--color-accent-400); }
+
+.btn { white-space: nowrap; transition: transform .28s cubic-bezier(.34,1.6,.64,1), background .2s; }
+.btn:active { transform: scale(.955); }
+
+[dir="rtl"] .table th { text-align: right; }
+
+input[type="range"] {
+  -webkit-appearance: none; appearance: none; height: 4px; border-radius: 4px;
+  background: var(--color-neutral-800); outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--color-accent); cursor: pointer;
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-accent) 55%, transparent);
+  transition: transform .2s cubic-bezier(.34,1.6,.64,1);
+}
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.25); }
+input[type="range"]::-webkit-slider-thumb:active { transform: scale(1.4); }
+input[type="range"]::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%; background: var(--color-accent);
+  cursor: pointer; border: none;
+}
+
+@keyframes ptRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes ptFadeSlide { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+@keyframes ptGrow { from { width: 0; } }
+@keyframes ptShimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes ptDialogIn { from { opacity: 0; transform: translateY(22px) scale(.955); } to { opacity: 1; transform: none; } }
+@keyframes ptDialogOut { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(14px) scale(.97); } }
+@keyframes ptFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ptFadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes ptPulseRing { 0% { transform: scale(1); opacity: .45; } 100% { transform: scale(1.9); opacity: 0; } }
+@keyframes ptBreathe { 0%,100% { box-shadow: 0 0 12px color-mix(in srgb, var(--color-accent) 30%, transparent); } 50% { box-shadow: 0 0 26px color-mix(in srgb, var(--color-accent) 55%, transparent); } }
+@keyframes ptBounce { 0%,80%,100% { transform: translateY(0); opacity: .4; } 40% { transform: translateY(-4px); opacity: 1; } }
+@keyframes ptTrace { to { stroke-dashoffset: 0; } }
+@keyframes ptSpin { to { transform: rotate(360deg); } }
+@keyframes ptBootOut { to { opacity: 0; transform: scale(1.045); filter: blur(14px); } }
+@keyframes ptWave { 0%,100% { transform: scaleY(.22); } 50% { transform: scaleY(1); } }
+@keyframes ptFloat { 0% { transform: translateY(24px); opacity: 0; } 18% { opacity: .55; } 82% { opacity: .35; } 100% { transform: translateY(-52px); opacity: 0; } }
+@keyframes ptCore { from { opacity: 0; transform: scale(.82); } to { opacity: 1; transform: scale(1); } }
+@keyframes ptHudIn { from { opacity: 0; transform: translateY(26px) scale(.96); filter: blur(10px); } to { opacity: 1; transform: none; filter: none; } }
+
+[data-pt-panel] > * { flex-shrink: 0; }
+[data-motion="reduced"] * { animation: none !important; transition: none !important; }
