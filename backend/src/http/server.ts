@@ -10,6 +10,7 @@ import { registerAuthRoutes } from "../modules/identity/authRoutes.js";
 import { registerDoctorRoutes } from "../modules/identity/doctorRoutes.js";
 import { registerOrganizationRoutes } from "../modules/organization/routes.js";
 import { registerPatientRoutes } from "../modules/patient/routes.js";
+import { registerConnectorRoutes } from "../modules/connector/routes.js";
 
 export async function buildServer() {
   const app = Fastify({ logger, trustProxy: true, genReqId: () => crypto.randomUUID() });
@@ -38,6 +39,7 @@ export async function buildServer() {
   await registerDoctorRoutes(app);
   await registerOrganizationRoutes(app);
   await registerPatientRoutes(app);
+  await registerConnectorRoutes(app);
 
   return app;
 }
