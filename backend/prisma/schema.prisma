@@ -223,6 +223,7 @@ model AuthSession {
   userAgent        String?
   createdAt        DateTime      @default(now())
   expiresAt        DateTime
+  refreshExpiresAt DateTime?
   lastSeenAt       DateTime      @default(now())
   revokedAt        DateTime?
 
