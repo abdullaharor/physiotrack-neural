@@ -1,0 +1,9 @@
+import { PrismaClient } from "@prisma/client";
+import { env } from "../config/env.js";
+
+/** Singleton Prisma client. */
+export const prisma = new PrismaClient({
+  log: env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
+});
+
+export type Prisma = typeof prisma;

@@ -1,0 +1,350 @@
+// PhysioTrack — multi-tenant clinic platform schema.
+// Every tenant-owned model carries organizationId (set server-side, never from
+// the client). App-level scoping is primary; PostgreSQL RLS is added as a
+// defense-in-depth backstop in a follow-up migration (Phase 2).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────── Enums ───────────────────────────
+
+enum OrgStatus {
+  active
+  suspended
+  disabled
+}
+
+enum InfraMode {
+  shared
+  dedicated
+}
+
+enum SubStatus {
+  active
+  grace
+  suspended
+  cancelled
+}
+
+enum UserRole {
+  platform_owner
+  clinic_owner
+  doctor
+  jarvis_service
+}
+
+enum UserStatus {
+  pending_activation
+  active
+  suspended
+  revoked
+  locked
+}
+
+enum DeviceStatus {
+  pending
+  trusted
+  revoked
+  blocked
+}
+
+enum SessionStatus {
+  active
+  revoked
+  expired
+}
+
+enum ApptStatus {
+  scheduled
+  confirmed
+  completed
+  cancelled
+  no_show
+}
+
+enum TxSessionStatus {
+  in_progress
+  completed
+  cancelled
+}
+
+enum AuditDecision {
+  allow
+  deny
+  info
+}
+
+// ─────────────────────────── Tenancy ───────────────────────────
+
+model Organization {
+  id         String    @id @default(cuid())
+  name       String
+  slug       String    @unique // clinic code, e.g. RIYADH-PHYSIO
+  status     OrgStatus @default(active)
+  infraMode  InfraMode @default(shared)
+  region     String    @default("me-central-1")
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  subscription Subscription?
+  users        User[]
+  patients     Patient[]
+  appointments Appointment[]
+  sessions     TreatmentSession[]
+  notes        Note[]
+  files        FileObject[]
+  devices      Device[]
+  auditLogs    AuditLog[]
+  usage        UsageCounter[]
+
+  @@index([status])
+}
+
+model Subscription {
+  id             String    @id @default(cuid())
+  organizationId String    @unique
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  planCode       String    // clinic-starter | clinic-professional | enterprise-custom
+  status         SubStatus @default(active)
+  currency       String    @default("SAR")
+  amount         Int       @default(0)
+  billingCycle   String    @default("monthly")
+  // Effective, per-tenant limits & features (overridable). NEVER hardcoded in logic.
+  limits         Json
+  features       Json
+  startsAt       DateTime  @default(now())
+  expiresAt      DateTime?
+  gracePeriodEndsAt DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([planCode, status])
+}
+
+// ─────────────────────────── Identity ───────────────────────────
+
+model User {
+  id             String     @id @default(cuid())
+  // Platform owners are not bound to a clinic (organizationId = null).
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  role           UserRole
+  status         UserStatus @default(pending_activation)
+  displayName    String
+  licenseNumber  String?
+  // Explicit grants beyond role defaults (deny-by-default; see rbac/).
+  permissions    String[]   @default([])
+  createdById    String?
+  createdAt      DateTime   @default(now())
+  activatedAt    DateTime?
+  updatedAt      DateTime   @updatedAt
+
+  credentials       WebauthnCredential[]
+  password          PasswordCredential?
+  devices           Device[]
+  activationTokens  ActivationToken[]
+  authSessions      AuthSession[]
+
+  @@unique([organizationId, id])
+  @@index([organizationId, role, status])
+}
+
+model WebauthnCredential {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  credentialId  String   @unique
+  publicKey     Bytes
+  counter       BigInt   @default(0)
+  transports    String[] @default([])
+  createdAt     DateTime @default(now())
+  lastUsedAt    DateTime?
+
+  @@index([userId])
+}
+
+model PasswordCredential {
+  userId     String   @id
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  argon2Hash String
+  updatedAt  DateTime @updatedAt
+}
+
+model Device {
+  id             String       @id @default(cuid())
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  publicKey      String
+  name           String
+  operatingSystem String?
+  status         DeviceStatus @default(pending)
+  registeredAt   DateTime     @default(now())
+  lastUsedAt     DateTime?
+  revokedAt      DateTime?
+
+  authSessions   AuthSession[]
+
+  @@index([organizationId, userId, status])
+}
+
+model ActivationToken {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash   String    @unique
+  expiresAt   DateTime
+  usedAt      DateTime?
+  createdById String
+  createdAt   DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model AuthSession {
+  id               String        @id @default(cuid())
+  userId           String
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organizationId   String?
+  deviceId         String?
+  device           Device?       @relation(fields: [deviceId], references: [id], onDelete: SetNull)
+  tokenHash        String        @unique
+  refreshTokenHash String?       @unique
+  refreshFamilyId  String?
+  status           SessionStatus @default(active)
+  ip               String?
+  userAgent        String?
+  createdAt        DateTime      @default(now())
+  expiresAt        DateTime
+  lastSeenAt       DateTime      @default(now())
+  revokedAt        DateTime?
+
+  @@index([userId, status])
+  @@index([refreshFamilyId])
+}
+
+// ─────────────────────────── Clinical (tenant-owned) ───────────────────────────
+
+model Patient {
+  id             String   @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  fullName       String
+  gender         String?
+  dateOfBirth    DateTime?
+  diagnosis      String?
+  dxKey          String?
+  createdById    String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  appointments Appointment[]
+  sessions     TreatmentSession[]
+  notes        Note[]
+  files        FileObject[]
+
+  @@index([organizationId, createdAt])
+  @@index([organizationId, fullName])
+}
+
+model Appointment {
+  id             String     @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  patientId      String
+  patient        Patient    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctorId       String
+  scheduledAt    DateTime
+  status         ApptStatus @default(scheduled)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([organizationId, scheduledAt])
+  @@index([organizationId, doctorId])
+}
+
+model TreatmentSession {
+  id             String          @id @default(cuid())
+  organizationId String
+  organization   Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  patientId      String
+  patient        Patient         @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctorId       String
+  status         TxSessionStatus @default(in_progress)
+  startedAt      DateTime        @default(now())
+  completedAt    DateTime?
+  romJson        Json?
+  mmtJson        Json?
+  summary        String?
+
+  @@index([organizationId, patientId])
+  @@index([organizationId, doctorId, status])
+}
+
+model Note {
+  id             String   @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  patientId      String
+  patient        Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  authorId       String
+  body           String
+  createdAt      DateTime @default(now())
+
+  @@index([organizationId, patientId])
+}
+
+model FileObject {
+  id             String   @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  patientId      String?
+  patient        Patient? @relation(fields: [patientId], references: [id], onDelete: SetNull)
+  storageKey     String   // org/{organizationId}/...
+  mime           String
+  sizeBytes      Int
+  createdById    String
+  createdAt      DateTime @default(now())
+
+  @@index([organizationId, patientId])
+}
+
+// ─────────────────────────── Audit & metering ───────────────────────────
+
+model AuditLog {
+  id             String        @id @default(cuid())
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  actorUserId    String?
+  actorRole      String?
+  action         String
+  resourceType   String?
+  resourceId     String?
+  decision       AuditDecision @default(info)
+  reason         String?
+  ip             String?
+  metadata       Json?
+  createdAt      DateTime      @default(now())
+
+  @@index([organizationId, createdAt])
+  @@index([action, decision])
+}
+
+model UsageCounter {
+  id             String   @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  metric         String   // e.g. ai_requests, storage_bytes
+  period         String   // e.g. 2026-07 (month) or "current"
+  value          BigInt   @default(0)
+  updatedAt      DateTime @updatedAt
+
+  @@unique([organizationId, metric, period])
+}
